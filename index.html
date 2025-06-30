@@ -223,56 +223,26 @@ h1, h2, p {
       <div id="pagination" style="display:flex;justify-content:center;align-items:center;margin:24px 0 0 0;gap:18px;"></div>
     </div>
   </div>
-  <!-- 移除音乐播放器相关内容 -->
+  <!-- 神秘标志按钮 -->
+  <div id="mysteryMask" style="position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:99;background:rgba(34,39,63,0.98);display:flex;align-items:center;justify-content:center;transition:opacity 0.7s;">
+    <button id="mysteryBtn" style="background:none;border:none;outline:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:12px;">
+      <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 0 12px #bdb2ff88);animation: mysteryFloat 2.5s infinite alternate;">
+        <circle cx="40" cy="40" r="36" fill="#bdb2ff" opacity="0.22"/>
+        <ellipse cx="40" cy="40" rx="28" ry="28" fill="#a0c4ff"/>
+        <text x="50%" y="54%" text-anchor="middle" fill="#232946" font-size="38" font-family="Segoe Script,Segoe UI,cursive" dy=".3em">?</text>
+      </svg>
+      <span style="color:#bdb2ff;font-size:1.18rem;font-family:'Segoe Script','Segoe UI',cursive;letter-spacing:1px;">点我探索神秘世界</span>
+    </button>
+  </div>
   <style>
-/* 动态效果：时间轴项淡入、浮动动画 */
-.timeline-item {
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeInUp 1.2s cubic-bezier(.23,1.02,.32,1) forwards;
-}
-.timeline-item:nth-child(1) { animation-delay: 0.1s; }
-.timeline-item:nth-child(2) { animation-delay: 0.3s; }
-.timeline-item:nth-child(3) { animation-delay: 0.5s; }
-.timeline-item:nth-child(4) { animation-delay: 0.7s; }
-.timeline-item:nth-child(5) { animation-delay: 0.9s; }
-@keyframes fadeInUp {
-  0% { opacity: 0; transform: translateY(30px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-/* 浮动的神秘感云朵动画 */
-.nature-cloud { animation: floatCloud 8s ease-in-out infinite alternate; }
-@keyframes floatCloud {
+@keyframes mysteryFloat {
   0% { transform: translateY(0px) scale(1); }
-  100% { transform: translateY(-18px) scale(1.04); }
+  100% { transform: translateY(-18px) scale(1.06); }
 }
-/* 小王子SVG轻微上下浮动 */
-.little-prince { animation: floatPrince 6s ease-in-out infinite alternate; }
-@keyframes floatPrince {
-  0% { transform: translateY(0px); }
-  100% { transform: translateY(-10px); }
-}
-/* 叶子轻微旋转漂浮 */
-.nature-leaf { animation: floatLeaf 7s ease-in-out infinite alternate; }
-@keyframes floatLeaf {
-  0% { transform: rotate(-2deg) translateY(0px); }
-  100% { transform: rotate(4deg) translateY(-8px); }
-}
-@media (max-width: 700px) {
-  /* 播放器顶部自适应 */
-  .container { padding-top: 60px; }
-  div[style*='position:fixed'][style*='top:24px'] {
-    right: 4vw !important;
-    top: 8px !important;
-    max-width: 96vw;
-    flex-wrap: wrap;
-    padding: 6px 2vw 6px 2vw;
-  }
-  #musicSelect { max-width: 60vw; }
-  audio#bgm { max-width: 60vw; }
-}
-</style>
-<script>
+#preview { opacity: 0; pointer-events: none; transition: opacity 0.7s; }
+#preview.unlocked { opacity: 1; pointer-events: auto; transition: opacity 0.7s; }
+  </style>
+  <script>
   // 星空背景生成
   (function(){
     const starCount = 80;
@@ -323,14 +293,23 @@ h1, h2, p {
     const start = (page - 1) * PAGE_SIZE;
     const end = Math.min(start + PAGE_SIZE, total);
     const pageItems = allPhotos.slice(start, end);
-    pageItems.forEach(item => {
+    pageItems.forEach((item, idx) => {
       const itemWrap = document.createElement('div');
       itemWrap.className = 'timeline-item';
       const dot = document.createElement('div');
       dot.className = 'timeline-dot';
       itemWrap.appendChild(dot);
+      // 神秘标志按钮
+      const secretBtn = document.createElement('button');
+      secretBtn.className = 'secret-btn';
+      secretBtn.innerHTML = `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="15" fill="#bdb2ff" stroke="#a0c4ff" stroke-width="2"/><text x="16" y="21" text-anchor="middle" font-size="18" fill="#232946" font-family="Segoe UI,Arial,sans-serif">?</text></svg><span class='secret-tip'>点我探索</span>`;
+      secretBtn.style.cssText = 'background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;outline:none;';
+      // 内容区域
       const content = document.createElement('div');
-      content.className = 'timeline-content';
+      content.className = 'timeline-content secret-content';
+      content.style.opacity = '0';
+      content.style.pointerEvents = 'none';
+      content.style.transition = 'opacity 0.7s cubic-bezier(.23,1.02,.32,1)';
       // 日期大号显示在左上
       if(item.date) {
         const date = document.createElement('div');
@@ -372,6 +351,15 @@ h1, h2, p {
         card.appendChild(desc);
       }
       content.appendChild(card);
+      // 点击神秘标志后显示内容
+      secretBtn.addEventListener('click', function() {
+        content.style.opacity = '1';
+        content.style.pointerEvents = 'auto';
+        secretBtn.style.opacity = '0';
+        secretBtn.style.pointerEvents = 'none';
+        setTimeout(()=>{ secretBtn.style.display = 'none'; }, 700);
+      });
+      itemWrap.appendChild(secretBtn);
       itemWrap.appendChild(content);
       timeline.appendChild(itemWrap);
     });
@@ -445,6 +433,16 @@ h1, h2, p {
   function isMobile() {
     return /Mobi|Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
   }
+  // 神秘标志捉迷藏交互
+  document.getElementById('mysteryBtn').addEventListener('click', function() {
+    document.getElementById('mysteryMask').style.opacity = 0;
+    setTimeout(function(){
+      document.getElementById('mysteryMask').style.display = 'none';
+      document.getElementById('preview').classList.add('unlocked');
+    }, 700);
+  });
+  // 初始隐藏内容
+  document.getElementById('preview').classList.remove('unlocked');
   </script>
 </body>
 </html>
