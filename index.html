@@ -368,7 +368,7 @@ h2 {
       <option value="https://lzhimagebed.xyz/%E5%91%A8%E6%9D%B0%E4%BC%A6%20-%20%E6%9C%AA%E5%91%BD%E5%90%8D%E7%9A%84%E6%AD%8C.mp3">未命名的歌 - 周杰伦</option>
       <option value="https://lzhimagebed.xyz/%E7%BA%A2%E6%9F%B3%E6%B1%9F%E5%8D%97%20-%20%E6%99%9A%E9%A3%8E%E6%9B%B2.mp3">晚风曲（纯音乐）- 红柳江南</option>
     </select>
-    <audio id="bgm" src="https://lzhimagebed.xyz/%E4%B9%B0%E8%BE%A3%E6%A4%92%E4%B9%9F%E7%94%A8%E5%88%B8%20-%20%E8%B5%B7%E9%A3%8E%E4%BA%86.mp3" loop preload="auto" style="display:none" autoplay></audio>
+    <audio id="bgm" src="https://lzhimagebed.xyz/%E6%96%BD%E5%8B%BF%E8%A8%80%20-%20%E8%BD%BB%E9%9F%B3%E4%B9%90%E8%88%92%E7%BC%93%E6%94%BE%E6%9D%BE%E7%BA%AF%E9%9F%B3%E4%B9%90%EF%BC%9A%E7%AD%89%E9%A3%8E%E7%9A%84%E6%97%A5%E5%AD%90.mp3" loop preload="auto" style="display:none" autoplay></audio>
     <div class="stars" id="stars"></div>
     <svg class="nature-decor little-prince" width="120" height="220" viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g>
@@ -424,6 +424,17 @@ h2 {
     max-height: 48vw;
   }
 }
+/* 轮播切换淡入淡出动画 */
+.day-carousel .timeline-content {
+  opacity: 1;
+  transition: opacity 0.45s cubic-bezier(.23,1.02,.32,1);
+}
+.day-carousel .timeline-content.fade-out {
+  opacity: 0;
+}
+.day-carousel .timeline-content.fade-in {
+  opacity: 1;
+}
 </style>
 <script>
   // 星空背景生成
@@ -472,7 +483,7 @@ h2 {
       let itemIdx = 0;
       const carousel = document.createElement('div');
       carousel.className = 'day-carousel';
-      function renderCarousel() {
+      function renderCarousel(direction) {
         carousel.innerHTML = '';
         if(items.length === 0) return;
         const item = items[itemIdx];
@@ -557,13 +568,40 @@ h2 {
           const leftBtn = document.createElement('button');
           leftBtn.className = 'carousel-btn left';
           leftBtn.innerHTML = '‹';
-          leftBtn.onclick = e => { e.stopPropagation(); itemIdx = (itemIdx-1+items.length)%items.length; renderCarousel(); };
+          leftBtn.onclick = e => {
+            e.stopPropagation();
+            animateCarousel(-1);
+          };
           carousel.appendChild(leftBtn);
           const rightBtn = document.createElement('button');
           rightBtn.className = 'carousel-btn right';
           rightBtn.innerHTML = '›';
-          rightBtn.onclick = e => { e.stopPropagation(); itemIdx = (itemIdx+1)%items.length; renderCarousel(); };
+          rightBtn.onclick = e => {
+            e.stopPropagation();
+            animateCarousel(1);
+          };
           carousel.appendChild(rightBtn);
+        }
+        // 动画处理
+        if(direction) {
+          content.classList.add('fade-in');
+          setTimeout(()=>{
+            content.classList.remove('fade-in');
+          }, 450);
+        }
+      }
+      // 切换动画逻辑
+      function animateCarousel(dir) {
+        const oldContent = carousel.querySelector('.timeline-content');
+        if(oldContent) {
+          oldContent.classList.add('fade-out');
+          setTimeout(()=>{
+            itemIdx = (itemIdx+dir+items.length)%items.length;
+            renderCarousel(dir>0?1:-1);
+          }, 350);
+        } else {
+          itemIdx = (itemIdx+dir+items.length)%items.length;
+          renderCarousel(dir>0?1:-1);
         }
       }
       renderCarousel();
