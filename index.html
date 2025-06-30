@@ -3,127 +3,159 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>我的个人博客</title>
+  <title>小王子的世界</title>
   <style>
 body {
   font-family: 'Segoe UI', 'Helvetica Neue', Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-  background: linear-gradient(135deg, #e0f7fa 0%, #f1f8e9 100%);
+  background: linear-gradient(135deg, #fceabb 0%, #f8b500 100%);
   margin: 0;
   min-height: 100vh;
   position: relative;
+  overflow-x: hidden;
 }
 .container {
-  max-width: 800px;
-  margin: 56px auto 40px auto;
-  background: rgba(255,255,255,0.92);
-  border-radius: 24px;
-  box-shadow: 0 8px 32px rgba(60,120,100,0.10);
-  padding: 40px 28px 32px 28px;
+  max-width: 900px;
+  margin: 60px auto 40px auto;
+  background: rgba(255,255,255,0.96);
+  border-radius: 32px;
+  box-shadow: 0 12px 40px rgba(255,193,7,0.13);
+  padding: 48px 32px 36px 32px;
   position: relative;
   z-index: 2;
 }
 h1 {
   text-align: center;
-  color: #388e3c;
-  margin-bottom: 8px;
-  font-size: 2.7rem;
-  letter-spacing: 2px;
+  color: #f8b500;
+  margin-bottom: 10px;
+  font-size: 3.1rem;
+  letter-spacing: 3px;
   font-family: 'Segoe Script', 'Segoe UI', cursive, sans-serif;
+  text-shadow: 0 2px 8px #fffde7, 0 1px 0 #fffde7;
 }
 p {
   text-align: center;
-  color: #5d7262;
-  margin-bottom: 32px;
-  font-size: 1.1rem;
+  color: #7c5c1e;
+  margin-bottom: 36px;
+  font-size: 1.18rem;
 }
 h2 {
-  color: #43a047;
+  color: #f8b500;
   margin-top: 0;
-  font-size: 1.25rem;
+  font-size: 1.35rem;
   letter-spacing: 1px;
+  text-align: center;
+  margin-bottom: 18px;
 }
 #preview {
   display: flex;
   flex-wrap: wrap;
-  gap: 28px 24px;
+  gap: 32px 28px;
   margin-top: 18px;
   justify-content: flex-start;
 }
 .photo-card {
-  background: linear-gradient(120deg, #e8f5e9 60%, #e3f2fd 100%);
-  border-radius: 22px;
-  box-shadow: 0 4px 18px rgba(56,142,60,0.10);
-  padding: 18px 14px 12px 14px;
+  background: linear-gradient(120deg, #fffde7 60%, #ffe082 100%);
+  border-radius: 26px;
+  box-shadow: 0 6px 24px rgba(255,193,7,0.13);
+  padding: 22px 16px 14px 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 200px;
-  max-width: 220px;
+  min-width: 220px;
+  max-width: 240px;
   transition: box-shadow 0.2s, transform 0.2s;
   position: relative;
+  border: 1.5px solid #ffe082;
 }
 .photo-card:hover {
-  box-shadow: 0 8px 32px rgba(56,142,60,0.18);
-  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 12px 36px rgba(255,193,7,0.22);
+  transform: translateY(-6px) scale(1.04);
 }
 .photo-card img {
-  max-width: 180px;
-  max-height: 180px;
-  border-radius: 18px;
-  box-shadow: 0 2px 12px rgba(100,180,120,0.10);
-  border: none;
-  margin-bottom: 10px;
-  background: #f1f8e9;
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 22px;
+  box-shadow: 0 2px 16px rgba(255,193,7,0.10);
+  border: 2px solid #ffe082;
+  margin-bottom: 12px;
+  background: #fffde7;
 }
 .photo-card .desc {
-  color: #388e3c;
-  font-size: 1.05rem;
+  color: #f8b500;
+  font-size: 1.13rem;
   text-align: center;
-  max-width: 180px;
+  max-width: 200px;
   word-break: break-all;
   font-family: 'Segoe Print', 'Segoe UI', cursive, sans-serif;
+  margin-bottom: 4px;
 }
 .photo-card .pub-date {
-  color: #8e9e95;
-  font-size: 0.92rem;
+  color: #bfa14a;
+  font-size: 0.98rem;
   margin-top: 6px;
   font-family: 'Segoe UI', Arial, sans-serif;
 }
 .mood-card {
-  background: linear-gradient(120deg, #fffde7 60%, #e3f2fd 100%);
+  background: linear-gradient(120deg, #fffde7 60%, #ffe082 100%);
   border: 1.5px dashed #ffe082;
   min-width: 180px;
   max-width: 320px;
   margin: 0 0 8px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 18px 12px 12px 12px;
+  box-sizing: border-box;
+  border-radius: 22px;
+  box-shadow: 0 2px 10px rgba(255,193,7,0.08);
 }
 .mood-card .desc {
   color: #ffb300;
-  font-size: 1.15rem;
+  font-size: 1.18rem;
   font-family: 'Segoe Print', 'Segoe UI', cursive, sans-serif;
   margin: 12px 0 6px 0;
+  text-align: center;
+  word-break: break-all;
+  max-width: 260px;
 }
-.nature-decor {
+.mood-card .pub-date {
+  color: #bfa14a;
+  font-size: 0.95rem;
+  margin-top: 4px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  text-align: right;
+  width: 100%;
+}
+.stars {
   position: fixed;
-  z-index: 1;
+  left: 0; top: 0; width: 100vw; height: 100vh;
   pointer-events: none;
+  z-index: 0;
 }
-.nature-leaf {
-  left: -60px;
-  top: 40px;
-  opacity: 0.18;
+.star {
+  position: absolute;
+  width: 2.5px; height: 2.5px;
+  background: #fffde7;
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: twinkle 2.5s infinite ease-in-out;
 }
-.nature-cloud {
-  right: -80px;
-  bottom: 20px;
-  opacity: 0.13;
+@keyframes twinkle {
+  0%,100% { opacity: 0.7; }
+  50% { opacity: 0.2; }
 }
 @media (max-width: 700px) {
   .container { padding: 10px 2vw; }
   #preview { gap: 18px 6vw; }
   .photo-card { min-width: 44vw; max-width: 48vw; }
   .photo-card img { max-width: 90vw; max-height: 40vw; }
+  h1 { font-size: 2.1rem; }
+  .mood-card { min-width: 80vw; max-width: 92vw; padding: 12px 4vw 10px 4vw; }
+  .mood-card .desc { font-size: 1.05rem; max-width: 80vw; }
 }
   </style>
+  <!-- 星空背景 -->
+  <div class="stars" id="stars"></div>
   <!-- 自然装饰SVG -->
   <svg class="nature-decor nature-leaf" width="160" height="120" viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
     <ellipse cx="80" cy="60" rx="80" ry="60" fill="#a5d6a7"/>
@@ -137,12 +169,25 @@ h2 {
 </head>
 <body>
   <div class="container">
-    <h1>My Website</h1>
-    <p>欢迎来到我的个人博客！这里你可以浏览我分享的照片和心情。</p>
+    <h1>小王子的世界</h1>
+    <p>欢迎来到我的个人博客！这里你可以浏览我分享的照片和心情。<br>“所有的大人都曾经是小孩，虽然，只有少数的人记得。”</p>
     <h2>我的照片分享</h2>
     <div id="preview"></div>
   </div>
   <script>
+  // 星空背景生成
+  (function(){
+    const starCount = 80;
+    const stars = document.getElementById('stars');
+    for(let i=0;i<starCount;i++){
+      const s = document.createElement('div');
+      s.className = 'star';
+      s.style.left = Math.random()*100+'vw';
+      s.style.top = Math.random()*100+'vh';
+      s.style.animationDelay = (Math.random()*2.5)+'s';
+      stars.appendChild(s);
+    }
+  })();
   // 自动加载 desc.json 并渲染图片和描述
   async function loadPhotos() {
     const preview = document.getElementById('preview');
