@@ -81,27 +81,29 @@ h2 {
 }
 .timeline {
         width: 100%;
-        max-width: 600px;
+        max-width: 100vw;
         margin: 0 auto;
         background: none;
         border-radius: 0;
         box-shadow: none;
         padding: 0;
-        min-height: 320px;
+        min-height: 0;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: flex-start;
+        gap: 32px;
       }
 .timeline-item {
-  width: 100%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: center;
-  min-width: 0;
-}
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+        min-width: 0;
+        padding-bottom: 0;
+      }
 .timeline-dot {
   display: none;
 }
@@ -146,63 +148,31 @@ h2 {
         transition: box-shadow 0.2s;
       }
 .photo-card, .mood-card {
-        background: none;
-        border-radius: 18px;
-        box-shadow: 0 4px 24px 0 rgba(160,196,255,0.10);
-        padding: 0 0 18px 0;
-        border: none;
-        max-width: 540px;
-        min-width: 0;
-        margin: 0 auto 0 auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-.photo-card img {
-  max-width: 420px;
-  max-height: 320px;
-  border-radius: 18px;
-  box-shadow: 0 2px 16px rgba(255,193,7,0.10);
-  border: none;
-  margin-bottom: 18px;
-  background: #232946;
-}
-.photo-card[style*="grid"] img,
-      .photo-card[style*="grid"] video {
         width: 100%;
-        max-width: 120px;
-        aspect-ratio: 1/1;
+        max-width: 100vw;
+        box-sizing: border-box;
+        padding: 0 0 18px 0;
+        margin: 0 auto 0 auto;
+      }
+.photo-card img, .photo-card video {
+        width: 100%;
+        max-width: 100vw;
+        border-radius: 14px;
+        margin-bottom: 8px;
         object-fit: cover;
-        border-radius: 10px;
-        margin-bottom: 0;
-        box-shadow: 0 1px 8px #23294622;
+      }
+.photo-card[style*="grid"] img, .photo-card[style*="grid"] video {
+        max-width: 100%;
+        aspect-ratio: 1/1;
+        min-width: 0;
       }
       @media (max-width: 700px) {
-        .photo-card[style*="grid"] img,
-        .photo-card[style*="grid"] video {
-          max-width: 28vw;
-        }
+        .timeline { max-width: 100vw; gap: 18px; }
+        .timeline-item { padding-bottom: 0; }
+        .photo-card, .mood-card { max-width: 100vw; }
+        .photo-card img, .photo-card video { max-width: 100vw; }
+        .photo-card[style*="grid"] img, .photo-card[style*="grid"] video { max-width: 32vw; }
       }
-.photo-card .desc, .mood-card .desc {
-  color: #a0c4ff;
-  font-size: 1.22rem;
-  text-align: center;
-  max-width: 420px;
-  word-break: break-all;
-  font-family: 'Segoe Print', 'Segoe UI', cursive, sans-serif;
-  margin-bottom: 8px;
-  background: none;
-  box-shadow: none;
-  border-radius: 0;
-}
-.photo-card .pub-date, .mood-card .pub-date {
-  color: #bdb2ff;
-  font-size: 1.08rem;
-  margin-top: 10px;
-  font-family: 'Segoe UI', Arial, sans-serif;
-  text-align: right;
-  width: 100%;
-}
 .stars {
   position: fixed;
   left: 0; top: 0; width: 100vw; height: 100vh;
@@ -239,6 +209,68 @@ h2 {
   .photo-card img { max-width: 98vw; max-height: 60vw; }
   .photo-card .desc, .mood-card .desc { font-size: 1.05rem; }
 }
+.day-block {
+        width: 100%;
+        max-width: 700px;
+        margin: 0 auto 38px auto;
+        background: none;
+        border-radius: 18px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0 0 0 0;
+      }
+      .day-header {
+        width: 100%;
+        text-align: left;
+        margin-bottom: 8px;
+        padding-left: 8px;
+      }
+      .day-title {
+        color: #bdb2ff;
+        font-size: 1.13rem;
+        font-family: 'Segoe Script', 'Segoe UI', cursive, sans-serif;
+        margin-bottom: 2px;
+      }
+      .day-desc {
+        color: #a0c4ff;
+        font-size: 1.01rem;
+        margin-bottom: 6px;
+      }
+      .day-carousel {
+        width: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        min-height: 220px;
+      }
+      .carousel-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(34,39,63,0.7);
+        color: #ffe082;
+        border: none;
+        border-radius: 50%;
+        width: 36px;
+        height: 36px;
+        font-size: 2rem;
+        cursor: pointer;
+        z-index: 10;
+        opacity: 0.85;
+        transition: background 0.2s;
+      }
+      .carousel-btn.left { left: 0; }
+      .carousel-btn.right { right: 0; }
+      .carousel-btn:active { background: #bdb2ff; color: #232946; }
+      @media (max-width: 700px) {
+        .day-block { max-width: 100vw; }
+        .day-carousel { min-height: 160px; }
+        .carousel-btn { width: 28px; height: 28px; font-size: 1.4rem; }
+      }
   </style>
   <!-- 星空背景 -->
   <div class="stars" id="stars"></div>
@@ -302,9 +334,41 @@ h2 {
     <select id="musicSelect" title="选择背景音乐" style="position:fixed;top:26px;right:80px;z-index:120;background:rgba(34,39,63,0.92);color:#ffe082;border-radius:8px;border:none;padding:2px 8px;font-size:1rem;outline:none;box-shadow:0 2px 8px #23294622;">
       <option value="https://lzhimagebed.xyz/%E4%B9%B0%E8%BE%A3%E6%A4%92%E4%B9%9F%E7%94%A8%E5%88%B8%20-%20%E8%B5%B7%E9%A3%8E%E4%BA%86.mp3">起风了 - 买辣椒也用券</option>
       <option value="https://lzhimagebed.xyz/%E9%99%88%E5%A5%95%E8%BF%85%20-%20%E6%B7%98%E6%B1%B0.mp3">淘汰 - 陈奕迅</option>
-      <option value="https://lzhimagebed.xyz/%E5%91%A8%E6%9D%B0%E4%BC%A6%20-%20%E6%9C%AA%E5%91%BD%E5%90%8D%E7%9A%84%E6%AD%8C.mp3">未命名的歌 - 周杰伦</option>
+      <option value="https://lzhimagebed.xyz/%E6%96%BD%E5%8B%BF%E8%A8%80%20-%20%E8%BD%BB%E9%9F%B3%E4%B9%90%E8%88%92%E7%BC%93%E6%94%BE%E6%9D%BE%E7%BA%AF%E9%9F%B3%E4%B9%90%EF%BC%9A%E7%AD%89%E9%A3%8E%E7%9A%84%E6%97%A5%E5%AD%90.mp3">纯音乐-施</option>
+      <option value="https://lzhimagebed.xyz/%E7%BA%A2%E6%9F%B3%E6%B1%9F%E5%8D%97%20-%20%E6%99%9A%E9%A3%8E%E6%9B%B2.mp3">晚风曲（纯音乐）- 红柳江南</option>
     </select>
-    <audio id="bgm" src="https://lzhimagebed.xyz/%E4%B9%B0%E8%BE%A3%E6%A4%92%E4%B9%9F%E7%94%A8%E5%88%B8%20-%20%E8%B5%B7%E9%A3%8E%E4%BA%86.mp3" loop preload="auto" style="display:none"></audio>
+    <audio id="bgm" src="https://lzhimagebed.xyz/%E4%B9%B0%E8%BE%A3%E6%A4%92%E4%B9%9F%E7%94%A8%E5%88%B8%20-%20%E8%B5%B7%E9%A3%8E%E4%BA%86.mp3" loop preload="auto" style="display:none" autoplay></audio>
+    <div class="stars" id="stars"></div>
+    <svg class="nature-decor little-prince" width="120" height="220" viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g>
+        <ellipse cx="60" cy="210" rx="38" ry="10" fill="#bdb2ff" opacity="0.18"/>
+        <circle cx="60" cy="70" r="38" fill="#ffe082" stroke="#f8b500" stroke-width="2"/>
+    <ellipse cx="170" cy="70" rx="30" ry="15" fill="#b3e5fc"/>
+  </svg>
+</head>
+<body>
+    <div class="header-fixed" style="position:fixed;top:0;left:0;width:100vw;z-index:100;background:rgba(34,39,63,0.98);box-shadow:0 2px 16px #23294622;padding:14px 0 8px 0;backdrop-filter:blur(2px);">
+      <h1 style="margin-bottom:4px;font-size:2.1rem;letter-spacing:1px;">小王子的世界</h1>
+      <p style="margin:0;font-size:1.08rem;color:#fffbe7;">欢迎来到我的个人博客！这里你可以浏览我分享的照片和心情。<br>“所有的大人都曾经是小孩，虽然，只有少数的人记得。”</p>
+    </div>
+    <div class="container" style="margin-top:90px;">
+      <h2 style="display:none">我的照片分享</h2>
+      <div id="preview">
+        <div class="timeline" id="timeline" style="width:100%;cursor:pointer;"></div>
+      </div>
+    </div>
+    <!-- 背景音乐播放器 -->
+    <button id="musicToggle" title="音乐开关" style="position:fixed;top:24px;right:32px;z-index:120;background:none;border:none;outline:none;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;">
+      <svg id="icon-music-on" width="36" height="36" viewBox="0 0 36 36" fill="none" style="display:block;"><circle cx="18" cy="18" r="17" fill="#bdb2ff" opacity="0.22"/><path d="M10 22h4l6 5V9l-6 5h-4v8z" fill="#a0c4ff" stroke="#232946" stroke-width="1.5"/><path d="M25 13c1.5 1.5 1.5 8.5 0 10" stroke="#232946" stroke-width="2" fill="none"/></svg>
+      <svg id="icon-music-off" width="36" height="36" viewBox="0 0 36 36" fill="none" style="display:none;"><circle cx="18" cy="18" r="17" fill="#bdb2ff" opacity="0.22"/><path d="M10 22h4l6 5V9l-6 5h-4v8z" fill="#a0c4ff" stroke="#232946" stroke-width="1.5"/><line x1="12" y1="12" x2="24" y2="24" stroke="#ff5252" stroke-width="2.5"/></svg>
+    </button>
+    <select id="musicSelect" title="选择背景音乐" style="position:fixed;top:26px;right:80px;z-index:120;background:rgba(34,39,63,0.92);color:#ffe082;border-radius:8px;border:none;padding:2px 8px;font-size:1rem;outline:none;box-shadow:0 2px 8px #23294622;">
+      <option value="https://lzhimagebed.xyz/%E4%B9%B0%E8%BE%A3%E6%A4%92%E4%B9%9F%E7%94%A8%E5%88%B8%20-%20%E8%B5%B7%E9%A3%8E%E4%BA%86.mp3">起风了 - 买辣椒也用券</option>
+      <option value="https://lzhimagebed.xyz/%E9%99%88%E5%A5%95%E8%BF%85%20-%20%E6%B7%98%E6%B1%B0.mp3">淘汰 - 陈奕迅</option>
+      <option value="https://lzhimagebed.xyz/%E5%91%A8%E6%9D%B0%E4%BC%A6%20-%20%E6%9C%AA%E5%91%BD%E5%90%8D%E7%9A%84%E6%AD%8C.mp3">未命名的歌 - 周杰伦</option>
+      <option value="https://lzhimagebed.xyz/%E7%BA%A2%E6%9F%B3%E6%B1%9F%E5%8D%97%20-%20%E6%99%9A%E9%A3%8E%E6%9B%B2.mp3">晚风曲（纯音乐）- 红柳江南</option>
+    </select>
+    <audio id="bgm" src="https://lzhimagebed.xyz/%E4%B9%B0%E8%BE%A3%E6%A4%92%E4%B9%9F%E7%94%A8%E5%88%B8%20-%20%E8%B5%B7%E9%A3%8E%E4%BA%86.mp3" loop preload="auto" style="display:none" autoplay></audio>
     <div class="stars" id="stars"></div>
     <svg class="nature-decor little-prince" width="120" height="220" viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g>
@@ -372,170 +436,137 @@ h2 {
   // 分页参数
   let currentIndex = 0;
   let allPhotos = [];
-  // 自动加载 desc.json 并渲染图片和描述（仅一条，支持左右切换）
+  // 自动加载 desc.json 并渲染：日期分区上下滚动，每天内左右切换
   async function loadPhotos() {
-    const timeline = document.getElementById('timeline');
-    timeline.innerHTML = '';
-    try {
-      const resp = await fetch('desc.json');
-      if (!resp.ok) throw new Error('desc.json 加载失败');
-      const data = await resp.json();
-      let photos = [];
-      if (Array.isArray(data)) {
-        photos = data;
-      } else if (data && Array.isArray(data.days)) {
-        data.days.forEach(day => {
-          if (Array.isArray(day.items)) {
-            day.items.forEach(item => {
-              photos.push({ ...item, date: day.date, dayTitle: day.title || '', dayDesc: day.desc || '' });
-            });
-          }
-        });
-      } else {
-        throw new Error('desc.json 格式错误');
-      }
-      allPhotos = photos;
-      renderCurrent();
-    } catch (e) {
-      timeline.innerHTML = '<div style="color:#c00;text-align:center;width:100%">无法加载 desc.json，<br>请确保通过本地服务器访问（如 VSCode Live Server、Python SimpleHTTPServer 等），否则浏览器安全策略会阻止读取本地文件。<br>错误信息：'+e.message+'</div>';
-      allPhotos = [];
+  const timeline = document.getElementById('timeline');
+  timeline.innerHTML = '';
+  try {
+    const resp = await fetch('desc.json');
+    if (!resp.ok) throw new Error('desc.json 加载失败');
+    const data = await resp.json();
+    let days = [];
+    if (Array.isArray(data.days)) {
+      days = data.days.slice().sort((a, b) => (b.date > a.date ? 1 : -1)); // 最新日期在前
+    } else {
+      throw new Error('desc.json 格式错误');
     }
-  }
-  function renderCurrent() {
-    const timeline = document.getElementById('timeline');
-    timeline.innerHTML = '';
-    if (!allPhotos.length) {
-      timeline.innerHTML = '<div style="color:#888;text-align:center;width:100%">暂无照片，请在 images/ 目录添加图片并编辑 desc.json</div>';
-      return;
-    }
-    if (currentIndex < 0) currentIndex = 0;
-    if (currentIndex >= allPhotos.length) currentIndex = allPhotos.length - 1;
-    const item = allPhotos[currentIndex];
-    const itemWrap = document.createElement('div');
-    itemWrap.className = 'timeline-item show';
-    const dot = document.createElement('div');
-    dot.className = 'timeline-dot';
-    itemWrap.appendChild(dot);
-    const content = document.createElement('div');
-    content.className = 'timeline-content';
-    // 日期大号显示在左上
-    if(item.date) {
-      const date = document.createElement('div');
-      date.className = 'timeline-date';
-      date.textContent = formatDate(item.date);
-      content.appendChild(date);
-    }
-    // 天标题/描述
-    if(item.dayTitle) {
-      const t = document.createElement('div');
-      t.style.cssText = 'color:#bdb2ff;font-size:1.12rem;font-family:Segoe Script,Segoe UI,cursive;margin-bottom:2px;';
-      t.textContent = item.dayTitle;
-      content.appendChild(t);
-    }
-    if(item.dayDesc) {
-      const d = document.createElement('div');
-      d.style.cssText = 'color:#a0c4ff;font-size:1.01rem;margin-bottom:6px;';
-      d.textContent = item.dayDesc;
-      content.appendChild(d);
-    }
-    let card;
-    // 多图/多视频宫格展示
-    if(Array.isArray(item.src) && item.src.length > 0) {
-      card = document.createElement('div');
-      card.className = 'photo-card';
-      card.style.display = 'grid';
-      let count = item.src.length;
-      let cols = count === 2 ? 2 : count === 4 ? 2 : count >= 3 ? 3 : 1;
-      card.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-      card.style.gap = '6px';
-      card.style.justifyItems = 'center';
-      item.src.forEach(function(url) {
-        if(/\.(mp4|webm|ogg)$/i.test(url)) {
-          const video = document.createElement('video');
-          video.src = url;
-          video.controls = true;
-          video.style.width = '100%';
-          video.style.maxWidth = '120px';
-          video.style.borderRadius = '10px';
-          video.style.background = '#232946';
-          card.appendChild(video);
-        } else {
+    days.forEach(day => {
+      const dayBlock = document.createElement('div');
+      dayBlock.className = 'day-block';
+      // 日期、标题、描述
+      const dayHeader = document.createElement('div');
+      dayHeader.className = 'day-header';
+      dayHeader.innerHTML = `<div class='timeline-date'>${formatDate(day.date)}</div>`;
+      if(day.title) dayHeader.innerHTML += `<div class='day-title'>${day.title}</div>`;
+      if(day.desc) dayHeader.innerHTML += `<div class='day-desc'>${day.desc}</div>`;
+      dayBlock.appendChild(dayHeader);
+      // 轮播区
+      const items = Array.isArray(day.items) ? day.items : [];
+      let itemIdx = 0;
+      const carousel = document.createElement('div');
+      carousel.className = 'day-carousel';
+      function renderCarousel() {
+        carousel.innerHTML = '';
+        if(items.length === 0) return;
+        const item = items[itemIdx];
+        const content = document.createElement('div');
+        content.className = 'timeline-content';
+        // 多图/多视频宫格展示
+        if(Array.isArray(item.src) && item.src.length > 0) {
+          card = document.createElement('div');
+          card.className = 'photo-card';
+          card.style.display = 'grid';
+          let count = item.src.length;
+          let cols = count === 2 ? 2 : count === 4 ? 2 : count >= 3 ? 3 : 1;
+          card.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+          card.style.gap = '6px';
+          card.style.justifyItems = 'center';
+          item.src.forEach(function(url) {
+            if(/\.(mp4|webm|ogg)$/i.test(url)) {
+              const video = document.createElement('video');
+              video.src = url;
+              video.controls = true;
+              video.style.width = '100%';
+              video.style.maxWidth = '120px';
+              video.style.borderRadius = '10px';
+              video.style.background = '#232946';
+              card.appendChild(video);
+            } else {
+              const img = document.createElement('img');
+              img.src = url;
+              img.alt = item.desc || '';
+              img.loading = 'lazy';
+              img.style.width = '100%';
+              img.style.maxWidth = '120px';
+              img.style.borderRadius = '10px';
+              img.style.background = '#232946';
+              img.style.objectFit = 'cover';
+              card.appendChild(img);
+            }
+          });
+        } else if(item.type === 'image' || (!item.type && item.src && /\.(jpg|jpeg|png|gif|webp)$/i.test(item.src))) {
+          card = document.createElement('div');
+          card.className = 'photo-card';
           const img = document.createElement('img');
-          img.src = url;
+          img.src = item.src;
           img.alt = item.desc || '';
           img.loading = 'lazy';
-          img.style.width = '100%';
-          img.style.maxWidth = '120px';
-          img.style.borderRadius = '10px';
-          img.style.background = '#232946';
-          img.style.objectFit = 'cover';
           card.appendChild(img);
+        } else if(item.type === 'video' || (item.src && /\.(mp4|webm|ogg)$/i.test(item.src))) {
+          card = document.createElement('div');
+          card.className = 'photo-card';
+          const video = document.createElement('video');
+          video.src = item.src;
+          video.controls = true;
+          video.style.maxWidth = '180px';
+          video.style.maxHeight = '180px';
+          video.style.borderRadius = '18px';
+          video.style.background = '#f1f8e9';
+          card.appendChild(video);
+        } else if(item.type === 'text' && !item.src) {
+          card = document.createElement('div');
+          card.className = 'mood-card';
+        } else {
+          card = document.createElement('div');
+          card.className = 'photo-card';
         }
-      });
-    } else if(item.type === 'image' || (!item.type && item.src && /\.(jpg|jpeg|png|gif|webp)$/i.test(item.src))) {
-      card = document.createElement('div');
-      card.className = 'photo-card';
-      const img = document.createElement('img');
-      img.src = item.src;
-      img.alt = item.desc || '';
-      img.loading = 'lazy';
-      card.appendChild(img);
-    } else if(item.type === 'video' || (item.src && /\.(mp4|webm|ogg)$/i.test(item.src))) {
-      card = document.createElement('div');
-      card.className = 'photo-card';
-      const video = document.createElement('video');
-      video.src = item.src;
-      video.controls = true;
-      video.style.maxWidth = '180px';
-      video.style.maxHeight = '180px';
-      video.style.borderRadius = '18px';
-      video.style.background = '#f1f8e9';
-      card.appendChild(video);
-    } else if(item.type === 'text' && !item.src) {
-      card = document.createElement('div');
-      card.className = 'mood-card';
-    } else {
-      card = document.createElement('div');
-      card.className = 'photo-card';
-    }
-    if(item.desc) {
-      const desc = document.createElement('div');
-      desc.className = 'desc';
-      desc.textContent = item.desc;
-      card.appendChild(desc);
-    }
-    // 可选：显示 tags
-    if(item.tags && item.tags.length) {
-      const tags = document.createElement('div');
-      tags.style.cssText = 'margin-top:4px;color:#ffe082;font-size:0.98rem;';
-      tags.textContent = '#' + item.tags.join(' #');
-      card.appendChild(tags);
-    }
-    content.appendChild(card);
-    itemWrap.appendChild(content);
-    timeline.appendChild(itemWrap);
-  }
-  // 点击 timeline 区域左右切换
-  document.addEventListener('DOMContentLoaded', function() {
-    const timeline = document.getElementById('timeline');
-    timeline.addEventListener('click', function(e) {
-      const rect = timeline.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      if (x > rect.width / 2) {
-        // 右侧，下一条
-        if (currentIndex < allPhotos.length - 1) {
-          currentIndex++;
-          renderCurrent();
+        if(item.desc) {
+          const desc = document.createElement('div');
+          desc.className = 'desc';
+          desc.textContent = item.desc;
+          card.appendChild(desc);
         }
-      } else {
-        // 左侧，上一条
-        if (currentIndex > 0) {
-          currentIndex--;
-          renderCurrent();
+        // 可选：显示 tags
+        if(item.tags && item.tags.length) {
+          const tags = document.createElement('div');
+          tags.style.cssText = 'margin-top:4px;color:#ffe082;font-size:0.98rem;';
+          tags.textContent = '#' + item.tags.join(' #');
+          card.appendChild(tags);
+        }
+        content.appendChild(card);
+        carousel.appendChild(content);
+        // 左右按钮
+        if(items.length > 1) {
+          const leftBtn = document.createElement('button');
+          leftBtn.className = 'carousel-btn left';
+          leftBtn.innerHTML = '‹';
+          leftBtn.onclick = e => { e.stopPropagation(); itemIdx = (itemIdx-1+items.length)%items.length; renderCarousel(); };
+          carousel.appendChild(leftBtn);
+          const rightBtn = document.createElement('button');
+          rightBtn.className = 'carousel-btn right';
+          rightBtn.innerHTML = '›';
+          rightBtn.onclick = e => { e.stopPropagation(); itemIdx = (itemIdx+1)%items.length; renderCarousel(); };
+          carousel.appendChild(rightBtn);
         }
       }
+      renderCarousel();
+      dayBlock.appendChild(carousel);
+      timeline.appendChild(dayBlock);
     });
-  });
+  } catch (e) {
+    timeline.innerHTML = '<div style="color:#c00;text-align:center;width:100%">无法加载 desc.json，<br>请确保通过本地服务器访问（如 VSCode Live Server、Python SimpleHTTPServer 等），否则浏览器安全策略会阻止读取本地文件。<br>错误信息：'+e.message+'</div>';
+  }
+}
   // 音乐开关按钮逻辑
   function updateMusicIcon() {
     var audio = document.getElementById('bgm');
