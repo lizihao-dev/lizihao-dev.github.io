@@ -223,24 +223,7 @@ h1, h2, p {
       <div id="pagination" style="display:flex;justify-content:center;align-items:center;margin:24px 0 0 0;gap:18px;"></div>
     </div>
   </div>
-  <!-- 治愈系纯音乐播放器，移动到顶部右侧 -->
-  <div style="position:fixed;right:24px;top:24px;z-index:99;display:flex;align-items:center;gap:12px;box-shadow:0 2px 12px #23294644;border-radius:16px;background:#232946;padding:8px 16px;backdrop-filter:blur(2px);">
-    <label for="musicSelect" style="color:#bdb2ff;font-size:1rem;">🎵 选择音乐：</label>
-    <select id="musicSelect" style="border-radius:8px;padding:4px 8px;font-size:1rem;background:#a0c4ff;color:#232946;border:none;outline:none;">
-      <option value="https://cdn.jsdelivr.net/gh/skyoflw/assets/audio/relax-piano.mp3">默认纯音乐</option>
-      <option value="music/your-music1.mp3">本地音乐1</option>
-      <option value="music/your-music2.mp3">本地音乐2</option>
-      <!-- 你可以继续添加更多音乐文件 -->
-    </select>
-
-    <audio id="bgm" src="https://cdn.jsdelivr.net/gh/skyoflw/assets/audio/relax-piano.mp3" loop controls style="border-radius:12px;background:#232946;outline:none;max-width:220px;">
-      您的浏览器不支持 audio 元素。
-    </audio>
-  </div>
-  <!-- 覆盖全屏的点击播放按钮 -->
-  <div id="musicStartMask" style="position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:999;background:rgba(34,39,63,0.92);display:flex;align-items:center;justify-content:center;transition:opacity 0.5s;">
-    <button id="musicStartBtn" style="font-size:1.4rem;padding:18px 38px;border-radius:18px;background:#a0c4ff;color:#232946;border:none;box-shadow:0 4px 24px #23294644;cursor:pointer;">点击开始聆听治愈音乐</button>
-  </div>
+  <!-- 移除音乐播放器相关内容 -->
   <style>
 /* 动态效果：时间轴项淡入、浮动动画 */
 .timeline-item {
@@ -289,7 +272,7 @@ h1, h2, p {
   audio#bgm { max-width: 60vw; }
 }
 </style>
-  <script>
+<script>
   // 星空背景生成
   (function(){
     const starCount = 80;
@@ -424,17 +407,6 @@ h1, h2, p {
     return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
   }
   loadPhotos();
-  // 音乐切换功能，增加错误提示
-  document.getElementById('musicSelect').addEventListener('change', function() {
-    var audio = document.getElementById('bgm');
-    audio.src = this.value;
-    var playPromise = audio.play();
-    if(playPromise !== undefined) {
-      playPromise.catch(function(err){
-        alert('音乐无法自动播放，请手动点击播放器播放按钮或检查音乐文件是否存在！');
-      });
-    }
-  });
   // 兼容移动端自动播放：点击按钮后播放音乐
   document.getElementById('musicStartBtn').addEventListener('click', function() {
     var audio = document.getElementById('bgm');
