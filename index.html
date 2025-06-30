@@ -401,24 +401,31 @@ h2 {
       <ellipse cx="170" cy="70" rx="30" ry="15" fill="#b3e5fc"/>
     </svg>
   </div>
-  <!-- 自然装饰SVG -->
-  <svg class="nature-decor nature-leaf" width="160" height="120" viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <ellipse cx="80" cy="60" rx="80" ry="60" fill="#a5d6a7"/>
-    <path d="M80 60 Q100 20 140 40 Q120 80 80 60 Z" fill="#66bb6a"/>
-  </svg>
-  <svg class="nature-decor nature-cloud" width="200" height="90" viewBox="0 0 200 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <ellipse cx="60" cy="60" rx="60" ry="30" fill="#b3e5fc"/>
-    <ellipse cx="120" cy="50" rx="50" ry="25" fill="#b3e5fc"/>
-    <ellipse cx="170" cy="70" rx="30" ry="15" fill="#b3e5fc"/>
-  </svg>
-  <style>
-  /* ...existing styles... */
-  .timeline { cursor: pointer; min-height: 220px; }
-  .timeline-item { transition: opacity 0.5s, transform 0.5s; }
-  .timeline-item.hide { opacity: 0; transform: scale(0.96) translateY(30px); pointer-events: none; }
-  .timeline-item.show { opacity: 1; transform: scale(1) translateY(0); pointer-events: auto; }
-  </style>
-  <script>
+  <!-- 简单背景音乐播放器，带喇叭按钮可开关 -->
+<button id="bgmToggle" style="position:fixed;right:24px;top:24px;z-index:99;background:#232946;border:none;border-radius:50%;width:48px;height:48px;box-shadow:0 2px 12px #23294644;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+  <span id="bgmIcon" style="font-size:2rem;color:#a0c4ff;">🔊</span>
+</button>
+<audio id="bgm" src="https://cdn.jsdelivr.net/gh/skyoflw/assets/audio/relax-piano.mp3" loop style="display:none;"></audio>
+<style>
+/* 视频放大，适配移动端 */
+.photo-card video {
+  max-width: 98vw;
+  max-height: 340px;
+  width: 100%;
+  border-radius: 18px;
+  background: #f1f8e9;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 16px rgba(255,193,7,0.10);
+  border: 2px solid #a0c4ff;
+}
+@media (max-width: 700px) {
+  .photo-card video {
+    max-width: 98vw;
+    max-height: 48vw;
+  }
+}
+</style>
+<script>
   // 星空背景生成
   (function(){
     const starCount = 80;
@@ -628,6 +635,34 @@ h2 {
       audio.play().catch(function(){});
     }
     updateMusicIcon();
+  });
+  // 背景音乐喇叭按钮开关
+  const bgm = document.getElementById('bgm');
+  const bgmToggle = document.getElementById('bgmToggle');
+  const bgmIcon = document.getElementById('bgmIcon');
+  let bgmPlaying = false;
+  function updateBgmIcon() {
+    bgmIcon.textContent = bgmPlaying ? '🔊' : '🔈';
+  }
+  bgmToggle.addEventListener('click', function() {
+    if(bgmPlaying) {
+      bgm.pause();
+      bgmPlaying = false;
+    } else {
+      bgm.play();
+      bgmPlaying = true;
+    }
+    updateBgmIcon();
+  });
+  // 自动切换icon状态
+  bgm.addEventListener('play', function(){ bgmPlaying = true; updateBgmIcon(); });
+  bgm.addEventListener('pause', function(){ bgmPlaying = false; updateBgmIcon(); });
+  // 页面加载后自动播放一次（需用户交互后才生效）
+  document.body.addEventListener('click', function autoPlayBgm(){
+    if(!bgmPlaying){
+      bgm.play().catch(()=>{});
+    }
+    document.body.removeEventListener('click', autoPlayBgm);
   });
   loadPhotos();
   </script>
