@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "days": [
     {
       "date": "2025-06-30",
@@ -40,9 +40,10 @@
         },
         {
           "type": "video",
-          "src": ["https://lzhimagebed.xyz/QQ视频_b7201269b246c294d98baf97ac2bdc2e1675430590.mp4",
-                  "https://lzhimagebed.xyz/mmexport1743862481935.webp "
-                   ] ,
+          "src": [
+            "https://lzhimagebed.xyz/QQ视频_b7201269b246c294d98baf97ac2bdc2e1675430590.mp4",
+            "https://lzhimagebed.xyz/mmexport1743862481935.webp "
+          ],
           "desc": "jijijijijij",
           "tags": [],
           "cover": "",
@@ -61,6 +62,21 @@
           "src": "https://lzhimagebed.xyz/mmexport1743862481935.webp",
           "desc": "野花",
           "tags": ["自然"],
+          "cover": "",
+          "extra": {}
+        }
+      ]
+    },
+    {
+      "date": "2025-07-01",
+      "title": "新的开始",
+      "desc": "今天是7月的第一天，记录一下新的心情！",
+      "items": [
+        {
+          "type": "image",
+          "src": "images/yangyuhan.jpg",
+          "desc": "阳光明媚，充满希望的一天 ☀️",
+          "tags": ["心情", "生活"],
           "cover": "",
           "extra": {}
         }
