@@ -381,7 +381,7 @@ h1, h2, p {
       prevBtn.textContent = '上一页';
       prevBtn.disabled = currentPage === 1;
       prevBtn.style.cssText = 'padding:6px 18px;border-radius:8px;border:none;background:#a0c4ff;color:#232946;font-size:1rem;cursor:pointer;opacity:'+(currentPage===1?0.5:1)+';';
-      prevBtn.onclick = () => { renderPage(currentPage-1); window.scrollTo({top:0,behavior:'smooth'}); };
+      prevBtn.onclick = () => { renderPage(currentPage-1); if (isMobile()) window.scrollTo({top:0,behavior:'smooth'}); };
       pagination.appendChild(prevBtn);
       const pageInfo = document.createElement('span');
       pageInfo.textContent = `第 ${currentPage} / ${totalPages} 页`;
@@ -391,7 +391,7 @@ h1, h2, p {
       nextBtn.textContent = '下一页';
       nextBtn.disabled = currentPage === totalPages;
       nextBtn.style.cssText = 'padding:6px 18px;border-radius:8px;border:none;background:#a0c4ff;color:#232946;font-size:1rem;cursor:pointer;opacity:'+(currentPage===totalPages?0.5:1)+';';
-      nextBtn.onclick = () => { renderPage(currentPage+1); window.scrollTo({top:0,behavior:'smooth'}); };
+      nextBtn.onclick = () => { renderPage(currentPage+1); if (isMobile()) window.scrollTo({top:0,behavior:'smooth'}); };
       pagination.appendChild(nextBtn);
     }
     if (allPhotos.length === 0) {
@@ -440,6 +440,10 @@ h1, h2, p {
   renderPage = function(page) {
     oldRenderPage(page);
     setTimeout(reAnimateTimeline, 10);
+  }
+  // 新增：判断是否为移动端
+  function isMobile() {
+    return /Mobi|Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
   }
   </script>
 </body>
