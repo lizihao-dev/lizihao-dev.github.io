@@ -303,8 +303,24 @@ h1, h2, p {
     try {
       const resp = await fetch('desc.json');
       if (!resp.ok) throw new Error('desc.json 加载失败');
-      const photos = await resp.json();
-      if (!Array.isArray(photos)) throw new Error('desc.json 格式错误');
+      const data = await resp.json();
+      // 适配新版结构
+      let photos = [];
+      if (Array.isArray(data)) {
+        // 兼容旧结构
+        photos = data;
+      } else if (data && Array.isArray(data.days)) {
+        // 新结构，合并所有 days.items，并保留 date 字段
+        data.days.forEach(day => {
+          if (Array.isArray(day.items)) {
+            day.items.forEach(item => {
+              photos.push({ ...item, date: day.date, dayTitle: day.title || '', dayDesc: day.desc || '' });
+            });
+          }
+        });
+      } else {
+        throw new Error('desc.json 格式错误');
+      }
       allPhotos = photos;
       renderPage(currentPage);
     } catch (e) {
