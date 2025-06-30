@@ -83,6 +83,25 @@ h2 {
   word-break: break-all;
   font-family: 'Segoe Print', 'Segoe UI', cursive, sans-serif;
 }
+.photo-card .pub-date {
+  color: #8e9e95;
+  font-size: 0.92rem;
+  margin-top: 6px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+.mood-card {
+  background: linear-gradient(120deg, #fffde7 60%, #e3f2fd 100%);
+  border: 1.5px dashed #ffe082;
+  min-width: 180px;
+  max-width: 320px;
+  margin: 0 0 8px 0;
+}
+.mood-card .desc {
+  color: #ffb300;
+  font-size: 1.15rem;
+  font-family: 'Segoe Print', 'Segoe UI', cursive, sans-serif;
+  margin: 12px 0 6px 0;
+}
 .nature-decor {
   position: fixed;
   z-index: 1;
@@ -136,15 +155,40 @@ h2 {
       photos.forEach(item => {
         const wrap = document.createElement('div');
         wrap.className = 'photo-card';
-        const img = document.createElement('img');
-        img.src = item.src;
-        img.alt = item.desc || '';
-        wrap.appendChild(img);
+        // 支持三种类型：image, video, text
+        if(item.type === 'image' || (!item.type && item.src && /\.(jpg|jpeg|png|gif|webp)$/i.test(item.src))) {
+          const img = document.createElement('img');
+          img.src = item.src;
+          img.alt = item.desc || '';
+          img.loading = 'lazy';
+          wrap.appendChild(img);
+        } else if(item.type === 'video' || (item.src && /\.(mp4|webm|ogg)$/i.test(item.src))) {
+          const video = document.createElement('video');
+          video.src = item.src;
+          video.controls = true;
+          video.style.maxWidth = '180px';
+          video.style.maxHeight = '180px';
+          video.style.borderRadius = '18px';
+          video.style.background = '#f1f8e9';
+          wrap.appendChild(video);
+        }
+        // 文字描述或纯文本心情
         if(item.desc) {
           const desc = document.createElement('div');
           desc.className = 'desc';
           desc.textContent = item.desc;
           wrap.appendChild(desc);
+        }
+        // 仅文字心情（无src）
+        if(item.type === 'text' && !item.src) {
+          wrap.classList.add('mood-card');
+        }
+        // 发布时间
+        if(item.date) {
+          const date = document.createElement('div');
+          date.className = 'pub-date';
+          date.textContent = formatDate(item.date);
+          wrap.appendChild(date);
         }
         preview.appendChild(wrap);
       });
@@ -154,6 +198,13 @@ h2 {
     } catch (e) {
       preview.innerHTML = '<div style="color:#c00;text-align:center;width:100%">无法加载 desc.json，<br>请确保通过本地服务器访问（如 VSCode Live Server、Python SimpleHTTPServer 等），否则浏览器安全策略会阻止读取本地文件。<br>错误信息：'+e.message+'</div>';
     }
+  }
+  // 新增：格式化日期函数
+  function formatDate(dateStr) {
+    if(!dateStr) return '';
+    const d = new Date(dateStr);
+    if(isNaN(d)) return dateStr;
+    return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
   }
   loadPhotos();
   </script>
