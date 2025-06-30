@@ -669,7 +669,7 @@ musicSelect.addEventListener('change', function() {
   setInterval(switchBg, 12000); // 每12秒切换一次
 
   // 音乐选择下拉框逻辑
-  const musicSelect = document.getElementById('musicSelect');
+  musicSelect = document.getElementById('musicSelect');
   musicSelect.addEventListener('change', function() {
     const audio = document.getElementById('bgm');
     audio.src = this.value;
