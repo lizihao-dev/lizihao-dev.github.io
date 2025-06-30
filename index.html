@@ -124,38 +124,38 @@ h2 {
     <div id="preview"></div>
   </div>
   <script>
-  // 你可以在这里维护你的照片和文字内容
-  const photos = [
-    {
-      src: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80',
-      desc: '旅行的意义，是遇见不一样的风景。'
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80',
-      desc: '阳光正好，微风不燥。'
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80',
-      desc: '生活需要一些仪式感。'
+  // 自动加载 desc.json 并渲染图片和描述
+  async function loadPhotos() {
+    const preview = document.getElementById('preview');
+    preview.innerHTML = '';
+    try {
+      const resp = await fetch('desc.json');
+      if (!resp.ok) throw new Error('desc.json 加载失败');
+      const photos = await resp.json();
+      if (!Array.isArray(photos)) throw new Error('desc.json 格式错误');
+      photos.forEach(item => {
+        const wrap = document.createElement('div');
+        wrap.className = 'photo-card';
+        const img = document.createElement('img');
+        img.src = item.src;
+        img.alt = item.desc || '';
+        wrap.appendChild(img);
+        if(item.desc) {
+          const desc = document.createElement('div');
+          desc.className = 'desc';
+          desc.textContent = item.desc;
+          wrap.appendChild(desc);
+        }
+        preview.appendChild(wrap);
+      });
+      if (photos.length === 0) {
+        preview.innerHTML = '<div style="color:#888;text-align:center;width:100%">暂无照片，请在 images/ 目录添加图片并编辑 desc.json</div>';
+      }
+    } catch (e) {
+      preview.innerHTML = '<div style="color:#c00;text-align:center;width:100%">无法加载 desc.json，<br>请确保通过本地服务器访问（如 VSCode Live Server、Python SimpleHTTPServer 等），否则浏览器安全策略会阻止读取本地文件。<br>错误信息：'+e.message+'</div>';
     }
-    // 你可以继续添加更多照片
-  ];
-  const preview = document.getElementById('preview');
-  preview.innerHTML = '';
-  photos.forEach(item => {
-    const wrap = document.createElement('div');
-    wrap.className = 'photo-card';
-    const img = document.createElement('img');
-    img.src = item.src;
-    wrap.appendChild(img);
-    if(item.desc) {
-      const desc = document.createElement('div');
-      desc.className = 'desc';
-      desc.textContent = item.desc;
-      wrap.appendChild(desc);
-    }
-    preview.appendChild(wrap);
-  });
+  }
+  loadPhotos();
   </script>
 </body>
 </html>
