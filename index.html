@@ -279,6 +279,10 @@ h1, h2, p {
       renderPage(currentPage);
     } catch (e) {
       timeline.innerHTML = '<div style="color:#c00;text-align:center;width:100%">无法加载 desc.json，<br>请确保通过本地服务器访问（如 VSCode Live Server、Python SimpleHTTPServer 等），否则浏览器安全策略会阻止读取本地文件。<br>错误信息：'+e.message+'</div>';
+      allPhotos = [];
+      // 依然允许解锁内容区
+      document.getElementById('preview').classList.add('unlocked');
+      document.getElementById('mysteryMask').style.display = 'none';
     }
   }
 
