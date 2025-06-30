@@ -234,6 +234,8 @@ h1, h2, p {
       <span style="color:#bdb2ff;font-size:1.18rem;font-family:'Segoe Script','Segoe UI',cursive;letter-spacing:1px;">点我探索神秘世界</span>
     </button>
   </div>
+  <!-- 背景音乐播放器（自动播放，点击神秘标志后触发） -->
+  <audio id="bgm" src="https://lzhimagebed.xyz/%E9%99%88%E5%A5%95%E8%BF%85%20-%20%E6%B7%98%E6%B1%B0.mp3" loop preload="auto" style="display:none"></audio>
   <style>
 @keyframes mysteryFloat {
   0% { transform: translateY(0px) scale(1); }
@@ -440,6 +442,11 @@ h1, h2, p {
       document.getElementById('mysteryMask').style.display = 'none';
       document.getElementById('preview').classList.add('unlocked');
     }, 700);
+    // 自动播放背景音乐
+    var audio = document.getElementById('bgm');
+    if(audio) {
+      audio.play().catch(function(){});
+    }
   });
   // 初始隐藏内容
   document.getElementById('preview').classList.remove('unlocked');
