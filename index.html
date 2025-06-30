@@ -397,26 +397,6 @@ h1, h2, p {
     return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
   }
   loadPhotos();
-  // 兼容移动端自动播放：点击按钮后播放音乐
-  document.getElementById('musicStartBtn').addEventListener('click', function() {
-    var audio = document.getElementById('bgm');
-    audio.play().then(()=>{
-      document.getElementById('musicStartMask').style.opacity = 0;
-      setTimeout(()=>{
-        document.getElementById('musicStartMask').style.display = 'none';
-      },500);
-    }).catch(function(err){
-      alert('音乐播放失败，请检查音乐文件是否存在或浏览器设置！');
-    });
-  });
-  // 如果用户手动操作播放器也隐藏遮罩
-  document.getElementById('bgm').addEventListener('play', function() {
-    var mask = document.getElementById('musicStartMask');
-    if(mask && mask.style.display!=='none'){
-      mask.style.opacity = 0;
-      setTimeout(()=>{ mask.style.display = 'none'; },500);
-    }
-  });
   // 重新触发时间轴动画（翻页时）
   function reAnimateTimeline() {
     document.querySelectorAll('.timeline-item').forEach((el,i)=>{
