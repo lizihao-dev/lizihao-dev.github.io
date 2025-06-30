@@ -7,7 +7,7 @@
   <style>
 body {
   font-family: 'Segoe UI', 'Helvetica Neue', Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-  background: linear-gradient(135deg, #fceabb 0%, #f8b500 100%);
+  background: linear-gradient(135deg, #232946 0%, #1a1a2e 100%);
   margin: 0;
   min-height: 100vh;
   position: relative;
@@ -16,12 +16,15 @@ body {
 .container {
   max-width: 820px;
   margin: 60px auto 40px auto;
-  background: rgba(255,255,255,0.97);
+  background: rgba(34, 39, 63, 0.92);
   border-radius: 36px;
-  box-shadow: 0 12px 40px rgba(255,193,7,0.13);
+  box-shadow: 0 12px 40px rgba(44,62,80,0.18);
   padding: 48px 0 36px 0;
   position: relative;
   z-index: 2;
+}
+h1, h2, p {
+  color: #fffbe7;
 }
 #preview {
   display: flex;
@@ -45,9 +48,9 @@ body {
   top: 0;
   bottom: 0;
   width: 4px;
-  background: linear-gradient(180deg, #ffe082 0%, #f8b500 100%);
+  background: linear-gradient(180deg, #a0c4ff 0%, #bdb2ff 100%);
   border-radius: 2px;
-  opacity: 0.25;
+  opacity: 0.18;
 }
 .timeline-item {
   position: relative;
@@ -63,10 +66,10 @@ body {
   top: 24px;
   width: 16px;
   height: 16px;
-  background: #ffe082;
-  border: 3px solid #fffde7;
+  background: #a0c4ff;
+  border: 3px solid #fffbe7;
   border-radius: 50%;
-  box-shadow: 0 2px 8px #ffe08244;
+  box-shadow: 0 2px 8px #a0c4ff44;
   z-index: 2;
 }
 .timeline-content {
@@ -74,16 +77,16 @@ body {
   flex: 1;
 }
 .photo-card, .mood-card {
-  background: linear-gradient(120deg, #fffde7 60%, #ffe082 100%);
+  background: linear-gradient(120deg, #232946 60%, #393e6c 100%);
   border-radius: 26px;
-  box-shadow: 0 6px 24px rgba(255,193,7,0.10);
+  box-shadow: 0 6px 24px rgba(160,196,255,0.10);
   padding: 22px 18px 16px 18px;
   display: flex;
   flex-direction: column;
   align-items: center;
   max-width: 420px;
   margin: 0 auto;
-  border: 1.5px solid #ffe082;
+  border: 1.5px solid #a0c4ff;
   min-width: 0;
 }
 .photo-card img {
@@ -91,12 +94,12 @@ body {
   max-height: 220px;
   border-radius: 18px;
   box-shadow: 0 2px 16px rgba(255,193,7,0.10);
-  border: 2px solid #ffe082;
+  border: 2px solid #a0c4ff;
   margin-bottom: 12px;
-  background: #fffde7;
+  background: #232946;
 }
 .photo-card .desc, .mood-card .desc {
-  color: #f8b500;
+  color: #a0c4ff;
   font-size: 1.13rem;
   text-align: center;
   max-width: 320px;
@@ -105,7 +108,7 @@ body {
   margin-bottom: 4px;
 }
 .photo-card .pub-date, .mood-card .pub-date {
-  color: #bfa14a;
+  color: #bdb2ff;
   font-size: 0.98rem;
   margin-top: 6px;
   font-family: 'Segoe UI', Arial, sans-serif;
@@ -121,7 +124,7 @@ body {
 .star {
   position: absolute;
   width: 2.5px; height: 2.5px;
-  background: #fffde7;
+  background: #fffbe7;
   border-radius: 50%;
   opacity: 0.7;
   animation: twinkle 2.5s infinite ease-in-out;
