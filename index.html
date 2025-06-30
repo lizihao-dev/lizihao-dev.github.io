@@ -232,9 +232,14 @@ h1, h2, p {
       <option value="music/your-music2.mp3">本地音乐2</option>
       <!-- 你可以继续添加更多音乐文件 -->
     </select>
-    <audio id="bgm" src="https://cdn.jsdelivr.net/gh/skyoflw/assets/audio/relax-piano.mp3" autoplay loop controls style="border-radius:12px;background:#232946;outline:none;max-width:220px;">
+
+    <audio id="bgm" src="https://cdn.jsdelivr.net/gh/skyoflw/assets/audio/relax-piano.mp3" loop controls style="border-radius:12px;background:#232946;outline:none;max-width:220px;">
       您的浏览器不支持 audio 元素。
     </audio>
+  </div>
+  <!-- 覆盖全屏的点击播放按钮 -->
+  <div id="musicStartMask" style="position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:999;background:rgba(34,39,63,0.92);display:flex;align-items:center;justify-content:center;transition:opacity 0.5s;">
+    <button id="musicStartBtn" style="font-size:1.4rem;padding:18px 38px;border-radius:18px;background:#a0c4ff;color:#232946;border:none;box-shadow:0 4px 24px #23294644;cursor:pointer;">点击开始聆听治愈音乐</button>
   </div>
   <style>
 /* 动态效果：时间轴项淡入、浮动动画 */
@@ -419,11 +424,36 @@ h1, h2, p {
     return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
   }
   loadPhotos();
-  // 音乐切换功能
+  // 音乐切换功能，增加错误提示
   document.getElementById('musicSelect').addEventListener('change', function() {
     var audio = document.getElementById('bgm');
     audio.src = this.value;
-    audio.play();
+    var playPromise = audio.play();
+    if(playPromise !== undefined) {
+      playPromise.catch(function(err){
+        alert('音乐无法自动播放，请手动点击播放器播放按钮或检查音乐文件是否存在！');
+      });
+    }
+  });
+  // 兼容移动端自动播放：点击按钮后播放音乐
+  document.getElementById('musicStartBtn').addEventListener('click', function() {
+    var audio = document.getElementById('bgm');
+    audio.play().then(()=>{
+      document.getElementById('musicStartMask').style.opacity = 0;
+      setTimeout(()=>{
+        document.getElementById('musicStartMask').style.display = 'none';
+      },500);
+    }).catch(function(err){
+      alert('音乐播放失败，请检查音乐文件是否存在或浏览器设置！');
+    });
+  });
+  // 如果用户手动操作播放器也隐藏遮罩
+  document.getElementById('bgm').addEventListener('play', function() {
+    var mask = document.getElementById('musicStartMask');
+    if(mask && mask.style.display!=='none'){
+      mask.style.opacity = 0;
+      setTimeout(()=>{ mask.style.display = 'none'; },500);
+    }
   });
   // 重新触发时间轴动画（翻页时）
   function reAnimateTimeline() {
