@@ -1,1 +1,161 @@
-<h1>My Website</h1>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的个人博客</title>
+  <style>
+body {
+  font-family: 'Segoe UI', 'Helvetica Neue', Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  background: linear-gradient(135deg, #e0f7fa 0%, #f1f8e9 100%);
+  margin: 0;
+  min-height: 100vh;
+  position: relative;
+}
+.container {
+  max-width: 800px;
+  margin: 56px auto 40px auto;
+  background: rgba(255,255,255,0.92);
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(60,120,100,0.10);
+  padding: 40px 28px 32px 28px;
+  position: relative;
+  z-index: 2;
+}
+h1 {
+  text-align: center;
+  color: #388e3c;
+  margin-bottom: 8px;
+  font-size: 2.7rem;
+  letter-spacing: 2px;
+  font-family: 'Segoe Script', 'Segoe UI', cursive, sans-serif;
+}
+p {
+  text-align: center;
+  color: #5d7262;
+  margin-bottom: 32px;
+  font-size: 1.1rem;
+}
+h2 {
+  color: #43a047;
+  margin-top: 0;
+  font-size: 1.25rem;
+  letter-spacing: 1px;
+}
+#preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px 24px;
+  margin-top: 18px;
+  justify-content: flex-start;
+}
+.photo-card {
+  background: linear-gradient(120deg, #e8f5e9 60%, #e3f2fd 100%);
+  border-radius: 22px;
+  box-shadow: 0 4px 18px rgba(56,142,60,0.10);
+  padding: 18px 14px 12px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 200px;
+  max-width: 220px;
+  transition: box-shadow 0.2s, transform 0.2s;
+  position: relative;
+}
+.photo-card:hover {
+  box-shadow: 0 8px 32px rgba(56,142,60,0.18);
+  transform: translateY(-4px) scale(1.03);
+}
+.photo-card img {
+  max-width: 180px;
+  max-height: 180px;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(100,180,120,0.10);
+  border: none;
+  margin-bottom: 10px;
+  background: #f1f8e9;
+}
+.photo-card .desc {
+  color: #388e3c;
+  font-size: 1.05rem;
+  text-align: center;
+  max-width: 180px;
+  word-break: break-all;
+  font-family: 'Segoe Print', 'Segoe UI', cursive, sans-serif;
+}
+.nature-decor {
+  position: fixed;
+  z-index: 1;
+  pointer-events: none;
+}
+.nature-leaf {
+  left: -60px;
+  top: 40px;
+  opacity: 0.18;
+}
+.nature-cloud {
+  right: -80px;
+  bottom: 20px;
+  opacity: 0.13;
+}
+@media (max-width: 700px) {
+  .container { padding: 10px 2vw; }
+  #preview { gap: 18px 6vw; }
+  .photo-card { min-width: 44vw; max-width: 48vw; }
+  .photo-card img { max-width: 90vw; max-height: 40vw; }
+}
+  </style>
+  <!-- 自然装饰SVG -->
+  <svg class="nature-decor nature-leaf" width="160" height="120" viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="80" cy="60" rx="80" ry="60" fill="#a5d6a7"/>
+    <path d="M80 60 Q100 20 140 40 Q120 80 80 60 Z" fill="#66bb6a"/>
+  </svg>
+  <svg class="nature-decor nature-cloud" width="200" height="90" viewBox="0 0 200 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="60" cy="60" rx="60" ry="30" fill="#b3e5fc"/>
+    <ellipse cx="120" cy="50" rx="50" ry="25" fill="#b3e5fc"/>
+    <ellipse cx="170" cy="70" rx="30" ry="15" fill="#b3e5fc"/>
+  </svg>
+</head>
+<body>
+  <div class="container">
+    <h1>My Website</h1>
+    <p>欢迎来到我的个人博客！这里你可以浏览我分享的照片和心情。</p>
+    <h2>我的照片分享</h2>
+    <div id="preview"></div>
+  </div>
+  <script>
+  // 你可以在这里维护你的照片和文字内容
+  const photos = [
+    {
+      src: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80',
+      desc: '旅行的意义，是遇见不一样的风景。'
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80',
+      desc: '阳光正好，微风不燥。'
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80',
+      desc: '生活需要一些仪式感。'
+    }
+    // 你可以继续添加更多照片
+  ];
+  const preview = document.getElementById('preview');
+  preview.innerHTML = '';
+  photos.forEach(item => {
+    const wrap = document.createElement('div');
+    wrap.className = 'photo-card';
+    const img = document.createElement('img');
+    img.src = item.src;
+    wrap.appendChild(img);
+    if(item.desc) {
+      const desc = document.createElement('div');
+      desc.className = 'desc';
+      desc.textContent = item.desc;
+      wrap.appendChild(desc);
+    }
+    preview.appendChild(wrap);
+  });
+  </script>
+</body>
+</html>
