@@ -83,10 +83,10 @@ h2 {
         width: 100%;
         max-width: 600px;
         margin: 0 auto;
-        background: rgba(255,255,255,0.12);
-        border-radius: 18px;
-        box-shadow: 0 2px 16px #23294622;
-        padding: 0 0 0 0;
+        background: none;
+        border-radius: 0;
+        box-shadow: none;
+        padding: 0;
         min-height: 320px;
         display: flex;
         flex-direction: column;
@@ -146,27 +146,43 @@ h2 {
         transition: box-shadow 0.2s;
       }
 .photo-card, .mood-card {
-  background: linear-gradient(120deg, #232946 60%, #393e6c 100%);
-  border-radius: 26px;
-  box-shadow: 0 6px 24px rgba(160,196,255,0.10);
-  padding: 32px 24px 22px 24px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 540px;
-  min-width: 0;
-  margin: 0 auto;
-  border: 1.5px solid #a0c4ff;
-}
+        background: none;
+        border-radius: 18px;
+        box-shadow: 0 4px 24px 0 rgba(160,196,255,0.10);
+        padding: 0 0 18px 0;
+        border: none;
+        max-width: 540px;
+        min-width: 0;
+        margin: 0 auto 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
 .photo-card img {
   max-width: 420px;
   max-height: 320px;
   border-radius: 18px;
   box-shadow: 0 2px 16px rgba(255,193,7,0.10);
-  border: 2px solid #a0c4ff;
+  border: none;
   margin-bottom: 18px;
   background: #232946;
 }
+.photo-card[style*="grid"] img,
+      .photo-card[style*="grid"] video {
+        width: 100%;
+        max-width: 120px;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 0;
+        box-shadow: 0 1px 8px #23294622;
+      }
+      @media (max-width: 700px) {
+        .photo-card[style*="grid"] img,
+        .photo-card[style*="grid"] video {
+          max-width: 28vw;
+        }
+      }
 .photo-card .desc, .mood-card .desc {
   color: #a0c4ff;
   font-size: 1.22rem;
@@ -175,6 +191,9 @@ h2 {
   word-break: break-all;
   font-family: 'Segoe Print', 'Segoe UI', cursive, sans-serif;
   margin-bottom: 8px;
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
 }
 .photo-card .pub-date, .mood-card .pub-date {
   color: #bdb2ff;
@@ -205,9 +224,9 @@ h2 {
 @media (max-width: 900px) {
   .container { max-width: 99vw; }
   .timeline { max-width: 99vw; }
-  .photo-card, .mood-card { max-width: 96vw; }
-  .photo-card img { max-width: 92vw; max-height: 48vw; }
-  .photo-card .desc, .mood-card .desc { max-width: 92vw; }
+  .photo-card, .mood-card { max-width: 98vw; }
+  .photo-card img { max-width: 94vw; max-height: 52vw; }
+  .photo-card .desc, .mood-card .desc { max-width: 94vw; }
 }
 @media (max-width: 700px) {
   .header-fixed { border-radius: 0; padding: 12px 0 6px 0; }
@@ -216,8 +235,8 @@ h2 {
   .container { max-width: 100vw; padding: 0 0vw; border-radius: 0; margin-top: 80px; }
   #preview { max-width: 100vw; }
   .timeline { max-width: 100vw; min-height: 220px; }
-  .photo-card, .mood-card { max-width: 99vw; padding: 12px 2vw 10px 2vw; }
-  .photo-card img { max-width: 96vw; max-height: 52vw; }
+  .photo-card, .mood-card { max-width: 99vw; padding: 0 0 10px 0; }
+  .photo-card img { max-width: 98vw; max-height: 60vw; }
   .photo-card .desc, .mood-card .desc { font-size: 1.05rem; }
 }
   </style>
@@ -276,11 +295,16 @@ h2 {
       </div>
     </div>
     <!-- 背景音乐播放器 -->
-    <audio id="bgm" src="https://lzhimagebed.xyz/%E4%B9%B0%E8%BE%A3%E6%A4%92%E4%B9%9F%E7%94%A8%E5%88%B8%20-%20%E8%B5%B7%E9%A3%8E%E4%BA%86.mp3" loop preload="auto" style="display:none"></audio>
     <button id="musicToggle" title="音乐开关" style="position:fixed;top:24px;right:32px;z-index:120;background:none;border:none;outline:none;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;">
       <svg id="icon-music-on" width="36" height="36" viewBox="0 0 36 36" fill="none" style="display:block;"><circle cx="18" cy="18" r="17" fill="#bdb2ff" opacity="0.22"/><path d="M10 22h4l6 5V9l-6 5h-4v8z" fill="#a0c4ff" stroke="#232946" stroke-width="1.5"/><path d="M25 13c1.5 1.5 1.5 8.5 0 10" stroke="#232946" stroke-width="2" fill="none"/></svg>
       <svg id="icon-music-off" width="36" height="36" viewBox="0 0 36 36" fill="none" style="display:none;"><circle cx="18" cy="18" r="17" fill="#bdb2ff" opacity="0.22"/><path d="M10 22h4l6 5V9l-6 5h-4v8z" fill="#a0c4ff" stroke="#232946" stroke-width="1.5"/><line x1="12" y1="12" x2="24" y2="24" stroke="#ff5252" stroke-width="2.5"/></svg>
     </button>
+    <select id="musicSelect" title="选择背景音乐" style="position:fixed;top:26px;right:80px;z-index:120;background:rgba(34,39,63,0.92);color:#ffe082;border-radius:8px;border:none;padding:2px 8px;font-size:1rem;outline:none;box-shadow:0 2px 8px #23294622;">
+      <option value="https://lzhimagebed.xyz/%E4%B9%B0%E8%BE%A3%E6%A4%92%E4%B9%9F%E7%94%A8%E5%88%B8%20-%20%E8%B5%B7%E9%A3%8E%E4%BA%86.mp3">起风了 - 买辣椒也用券</option>
+      <option value="https://lzhimagebed.xyz/%E9%99%88%E5%A5%95%E8%BF%85%20-%20%E6%B7%98%E6%B1%B0.mp3">淘汰 - 陈奕迅</option>
+      <option value="https://lzhimagebed.xyz/%E5%91%A8%E6%9D%B0%E4%BC%A6%20-%20%E6%9C%AA%E5%91%BD%E5%90%8D%E7%9A%84%E6%AD%8C.mp3">未命名的歌 - 周杰伦</option>
+    </select>
+    <audio id="bgm" src="https://lzhimagebed.xyz/%E4%B9%B0%E8%BE%A3%E6%A4%92%E4%B9%9F%E7%94%A8%E5%88%B8%20-%20%E8%B5%B7%E9%A3%8E%E4%BA%86.mp3" loop preload="auto" style="display:none"></audio>
     <div class="stars" id="stars"></div>
     <svg class="nature-decor little-prince" width="120" height="220" viewBox="0 0 120 220" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g>
@@ -415,7 +439,40 @@ h2 {
       content.appendChild(d);
     }
     let card;
-    if(item.type === 'image' || (!item.type && item.src && /\.(jpg|jpeg|png|gif|webp)$/i.test(item.src))) {
+    // 多图/多视频宫格展示
+    if(Array.isArray(item.src) && item.src.length > 0) {
+      card = document.createElement('div');
+      card.className = 'photo-card';
+      card.style.display = 'grid';
+      let count = item.src.length;
+      let cols = count === 2 ? 2 : count === 4 ? 2 : count >= 3 ? 3 : 1;
+      card.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+      card.style.gap = '6px';
+      card.style.justifyItems = 'center';
+      item.src.forEach(function(url) {
+        if(/\.(mp4|webm|ogg)$/i.test(url)) {
+          const video = document.createElement('video');
+          video.src = url;
+          video.controls = true;
+          video.style.width = '100%';
+          video.style.maxWidth = '120px';
+          video.style.borderRadius = '10px';
+          video.style.background = '#232946';
+          card.appendChild(video);
+        } else {
+          const img = document.createElement('img');
+          img.src = url;
+          img.alt = item.desc || '';
+          img.loading = 'lazy';
+          img.style.width = '100%';
+          img.style.maxWidth = '120px';
+          img.style.borderRadius = '10px';
+          img.style.background = '#232946';
+          img.style.objectFit = 'cover';
+          card.appendChild(img);
+        }
+      });
+    } else if(item.type === 'image' || (!item.type && item.src && /\.(jpg|jpeg|png|gif|webp)$/i.test(item.src))) {
       card = document.createElement('div');
       card.className = 'photo-card';
       const img = document.createElement('img');
@@ -520,6 +577,27 @@ h2 {
   }
   switchBg();
   setInterval(switchBg, 12000); // 每12秒切换一次
+
+  // 音乐选择下拉框逻辑
+  const musicSelect = document.getElementById('musicSelect');
+  musicSelect.addEventListener('change', function() {
+    const audio = document.getElementById('bgm');
+    audio.src = this.value;
+    audio.play().catch(function(){});
+    updateMusicIcon();
+  });
+  // 音乐选择切换逻辑
+  document.getElementById('musicSelect').addEventListener('change', function(){
+    var audio = document.getElementById('bgm');
+    var url = this.value;
+    var wasPlaying = !audio.paused;
+    audio.src = url;
+    audio.load();
+    if(wasPlaying) {
+      audio.play().catch(function(){});
+    }
+    updateMusicIcon();
+  });
   loadPhotos();
   </script>
 </body>
