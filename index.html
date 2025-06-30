@@ -223,10 +223,67 @@ h1, h2, p {
       <div id="pagination" style="display:flex;justify-content:center;align-items:center;margin:24px 0 0 0;gap:18px;"></div>
     </div>
   </div>
-  <!-- 治愈系纯音乐播放器 -->
-  <audio id="bgm" src="https://cdn.jsdelivr.net/gh/skyoflw/assets/audio/relax-piano.mp3" autoplay loop controls style="position:fixed;right:24px;bottom:24px;z-index:99;box-shadow:0 2px 12px #23294644;border-radius:16px;outline:none;background:#232946;">
-    您的浏览器不支持 audio 元素。
-  </audio>
+  <!-- 治愈系纯音乐播放器，移动到顶部右侧 -->
+  <div style="position:fixed;right:24px;top:24px;z-index:99;display:flex;align-items:center;gap:12px;box-shadow:0 2px 12px #23294644;border-radius:16px;background:#232946;padding:8px 16px;backdrop-filter:blur(2px);">
+    <label for="musicSelect" style="color:#bdb2ff;font-size:1rem;">🎵 选择音乐：</label>
+    <select id="musicSelect" style="border-radius:8px;padding:4px 8px;font-size:1rem;background:#a0c4ff;color:#232946;border:none;outline:none;">
+      <option value="https://cdn.jsdelivr.net/gh/skyoflw/assets/audio/relax-piano.mp3">默认纯音乐</option>
+      <option value="music/your-music1.mp3">本地音乐1</option>
+      <option value="music/your-music2.mp3">本地音乐2</option>
+      <!-- 你可以继续添加更多音乐文件 -->
+    </select>
+    <audio id="bgm" src="https://cdn.jsdelivr.net/gh/skyoflw/assets/audio/relax-piano.mp3" autoplay loop controls style="border-radius:12px;background:#232946;outline:none;max-width:220px;">
+      您的浏览器不支持 audio 元素。
+    </audio>
+  </div>
+  <style>
+/* 动态效果：时间轴项淡入、浮动动画 */
+.timeline-item {
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1.2s cubic-bezier(.23,1.02,.32,1) forwards;
+}
+.timeline-item:nth-child(1) { animation-delay: 0.1s; }
+.timeline-item:nth-child(2) { animation-delay: 0.3s; }
+.timeline-item:nth-child(3) { animation-delay: 0.5s; }
+.timeline-item:nth-child(4) { animation-delay: 0.7s; }
+.timeline-item:nth-child(5) { animation-delay: 0.9s; }
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+/* 浮动的神秘感云朵动画 */
+.nature-cloud { animation: floatCloud 8s ease-in-out infinite alternate; }
+@keyframes floatCloud {
+  0% { transform: translateY(0px) scale(1); }
+  100% { transform: translateY(-18px) scale(1.04); }
+}
+/* 小王子SVG轻微上下浮动 */
+.little-prince { animation: floatPrince 6s ease-in-out infinite alternate; }
+@keyframes floatPrince {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-10px); }
+}
+/* 叶子轻微旋转漂浮 */
+.nature-leaf { animation: floatLeaf 7s ease-in-out infinite alternate; }
+@keyframes floatLeaf {
+  0% { transform: rotate(-2deg) translateY(0px); }
+  100% { transform: rotate(4deg) translateY(-8px); }
+}
+@media (max-width: 700px) {
+  /* 播放器顶部自适应 */
+  .container { padding-top: 60px; }
+  div[style*='position:fixed'][style*='top:24px'] {
+    right: 4vw !important;
+    top: 8px !important;
+    max-width: 96vw;
+    flex-wrap: wrap;
+    padding: 6px 2vw 6px 2vw;
+  }
+  #musicSelect { max-width: 60vw; }
+  audio#bgm { max-width: 60vw; }
+}
+</style>
   <script>
   // 星空背景生成
   (function(){
@@ -362,6 +419,26 @@ h1, h2, p {
     return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
   }
   loadPhotos();
+  // 音乐切换功能
+  document.getElementById('musicSelect').addEventListener('change', function() {
+    var audio = document.getElementById('bgm');
+    audio.src = this.value;
+    audio.play();
+  });
+  // 重新触发时间轴动画（翻页时）
+  function reAnimateTimeline() {
+    document.querySelectorAll('.timeline-item').forEach((el,i)=>{
+      el.style.animation = 'none';
+      el.offsetHeight; // 触发重绘
+      el.style.animation = '';
+    });
+  }
+  // 在 renderPage 后调用
+  const oldRenderPage = renderPage;
+  renderPage = function(page) {
+    oldRenderPage(page);
+    setTimeout(reAnimateTimeline, 10);
+  }
   </script>
 </body>
 </html>
