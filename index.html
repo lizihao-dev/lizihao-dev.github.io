@@ -232,14 +232,44 @@ h1, h2, p {
         <text x="50%" y="54%" text-anchor="middle" fill="#232946" font-size="38" font-family="Segoe Script,Segoe UI,cursive" dy=".3em">?</text>
       </svg>
       <span style="color:#bdb2ff;font-size:1.18rem;font-family:'Segoe Script','Segoe UI',cursive;letter-spacing:1px;">点我探索神秘世界</span>
+      <!-- 动画箭头 -->
+      <span class="mystery-arrow">
+        <svg width="32" height="32" viewBox="0 0 32 32"><g><path d="M16 8v16M16 24l-7-7M16 24l7-7" stroke="#bdb2ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g></svg>
+      </span>
     </button>
   </div>
+  <!-- 右上角音乐控制喇叭 -->
+  <button id="musicToggle" title="音乐开关" style="position:fixed;top:24px;right:32px;z-index:120;background:none;border:none;outline:none;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;">
+    <svg id="icon-music-on" width="36" height="36" viewBox="0 0 36 36" fill="none" style="display:block;"><circle cx="18" cy="18" r="17" fill="#bdb2ff" opacity="0.22"/><path d="M10 22h4l6 5V9l-6 5h-4v8z" fill="#a0c4ff" stroke="#232946" stroke-width="1.5"/><path d="M25 13c1.5 1.5 1.5 8.5 0 10" stroke="#232946" stroke-width="2" fill="none"/></svg>
+    <svg id="icon-music-off" width="36" height="36" viewBox="0 0 36 36" fill="none" style="display:none;"><circle cx="18" cy="18" r="17" fill="#bdb2ff" opacity="0.22"/><path d="M10 22h4l6 5V9l-6 5h-4v8z" fill="#a0c4ff" stroke="#232946" stroke-width="1.5"/><line x1="12" y1="12" x2="24" y2="24" stroke="#ff5252" stroke-width="2.5"/></svg>
+  </button>
   <!-- 背景音乐播放器（自动播放，点击神秘标志后触发） -->
   <audio id="bgm" src="https://lzhimagebed.xyz/%E9%99%88%E5%A5%95%E8%BF%85%20-%20%E6%B7%98%E6%B1%B0.mp3" loop preload="auto" style="display:none"></audio>
   <style>
 @keyframes mysteryFloat {
   0% { transform: translateY(0px) scale(1); }
   100% { transform: translateY(-18px) scale(1.06); }
+}
+@keyframes arrowBounce {
+  0% { transform: translateY(0); opacity: 0.7; }
+  50% { transform: translateY(16px); opacity: 1; }
+  100% { transform: translateY(0); opacity: 0.7; }
+}
+.mystery-arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 6px;
+  animation: arrowBounce 1.2s infinite;
+}
+#musicToggle {
+  transition: opacity 0.3s;
+  background: none;
+}
+#musicToggle svg { filter: drop-shadow(0 2px 8px #bdb2ff44); }
+#musicToggle:active { opacity: 0.7; }
+@media (max-width: 700px) {
+  #musicToggle { top: 8px; right: 8px; }
 }
 #preview { opacity: 0; pointer-events: none; transition: opacity 0.7s; }
 #preview.unlocked { opacity: 1; pointer-events: auto; transition: opacity 0.7s; }
@@ -420,7 +450,10 @@ h1, h2, p {
     return /Mobi|Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
   }
   // 神秘标志捉迷藏交互
-  document.getElementById('mysteryBtn').addEventListener('click', function() {
+  let mysteryUnlocked = false;
+  function unlockMystery() {
+    if (mysteryUnlocked) return;
+    mysteryUnlocked = true;
     document.getElementById('mysteryMask').style.opacity = 0;
     setTimeout(function(){
       document.getElementById('mysteryMask').style.display = 'none';
@@ -430,8 +463,38 @@ h1, h2, p {
     var audio = document.getElementById('bgm');
     if(audio) {
       audio.play().catch(function(){});
+      updateMusicIcon();
     }
+  }
+  document.getElementById('mysteryBtn').addEventListener('click', unlockMystery);
+  // 6秒未点击自动触发
+  setTimeout(function(){
+    if (!mysteryUnlocked) unlockMystery();
+  }, 6000);
+  // 音乐开关按钮逻辑
+  function updateMusicIcon() {
+    var audio = document.getElementById('bgm');
+    var on = document.getElementById('icon-music-on');
+    var off = document.getElementById('icon-music-off');
+    if(audio && !audio.paused) {
+      on.style.display = 'block';
+      off.style.display = 'none';
+    } else {
+      on.style.display = 'none';
+      off.style.display = 'block';
+    }
+  }
+  document.getElementById('musicToggle').addEventListener('click', function(){
+    var audio = document.getElementById('bgm');
+    if(audio.paused) {
+      audio.play().catch(function(){});
+    } else {
+      audio.pause();
+    }
+    updateMusicIcon();
   });
+  document.getElementById('bgm').addEventListener('play', updateMusicIcon);
+  document.getElementById('bgm').addEventListener('pause', updateMusicIcon);
   // 初始隐藏内容
   document.getElementById('preview').classList.remove('unlocked');
   </script>
