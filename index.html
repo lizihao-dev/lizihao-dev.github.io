@@ -219,60 +219,21 @@ h1, h2, p {
     <p>欢迎来到我的个人博客！这里你可以浏览我分享的照片和心情。<br>“所有的大人都曾经是小孩，虽然，只有少数的人记得。”</p>
     <h2>我的照片分享</h2>
     <div id="preview">
-      <div class="timeline" id="timeline"></div>
-      <div id="pagination" style="display:flex;justify-content:center;align-items:center;margin:24px 0 0 0;gap:18px;"></div>
+      <div class="timeline" id="timeline" style="width:100%;cursor:pointer;"></div>
     </div>
   </div>
-  <!-- 神秘标志按钮 -->
-  <div id="mysteryMask" style="position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:99;background:rgba(34,39,63,0.98);display:flex;align-items:center;justify-content:center;transition:opacity 0.7s;">
-    <button id="mysteryBtn" style="background:none;border:none;outline:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:12px;">
-      <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter:drop-shadow(0 0 12px #bdb2ff88);animation: mysteryFloat 2.5s infinite alternate;">
-        <circle cx="40" cy="40" r="36" fill="#bdb2ff" opacity="0.22"/>
-        <ellipse cx="40" cy="40" rx="28" ry="28" fill="#a0c4ff"/>
-        <text x="50%" y="54%" text-anchor="middle" fill="#232946" font-size="38" font-family="Segoe Script,Segoe UI,cursive" dy=".3em">?</text>
-      </svg>
-      <span style="color:#bdb2ff;font-size:1.18rem;font-family:'Segoe Script','Segoe UI',cursive;letter-spacing:1px;">点我探索神秘世界</span>
-      <!-- 动画箭头 -->
-      <span class="mystery-arrow">
-        <svg width="32" height="32" viewBox="0 0 32 32"><g><path d="M16 8v16M16 24l-7-7M16 24l7-7" stroke="#bdb2ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/></g></svg>
-      </span>
-    </button>
-  </div>
-  <!-- 右上角音乐控制喇叭 -->
+  <!-- 背景音乐播放器 -->
+  <audio id="bgm" src="https://lzhimagebed.xyz/%E9%99%88%E5%A5%95%E8%BF%85%20-%20%E6%B7%98%E6%B1%B0.mp3" loop preload="auto" style="display:none"></audio>
   <button id="musicToggle" title="音乐开关" style="position:fixed;top:24px;right:32px;z-index:120;background:none;border:none;outline:none;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;">
     <svg id="icon-music-on" width="36" height="36" viewBox="0 0 36 36" fill="none" style="display:block;"><circle cx="18" cy="18" r="17" fill="#bdb2ff" opacity="0.22"/><path d="M10 22h4l6 5V9l-6 5h-4v8z" fill="#a0c4ff" stroke="#232946" stroke-width="1.5"/><path d="M25 13c1.5 1.5 1.5 8.5 0 10" stroke="#232946" stroke-width="2" fill="none"/></svg>
     <svg id="icon-music-off" width="36" height="36" viewBox="0 0 36 36" fill="none" style="display:none;"><circle cx="18" cy="18" r="17" fill="#bdb2ff" opacity="0.22"/><path d="M10 22h4l6 5V9l-6 5h-4v8z" fill="#a0c4ff" stroke="#232946" stroke-width="1.5"/><line x1="12" y1="12" x2="24" y2="24" stroke="#ff5252" stroke-width="2.5"/></svg>
   </button>
-  <!-- 背景音乐播放器（自动播放，点击神秘标志后触发） -->
-  <audio id="bgm" src="https://lzhimagebed.xyz/%E9%99%88%E5%A5%95%E8%BF%85%20-%20%E6%B7%98%E6%B1%B0.mp3" loop preload="auto" style="display:none"></audio>
   <style>
-@keyframes mysteryFloat {
-  0% { transform: translateY(0px) scale(1); }
-  100% { transform: translateY(-18px) scale(1.06); }
-}
-@keyframes arrowBounce {
-  0% { transform: translateY(0); opacity: 0.7; }
-  50% { transform: translateY(16px); opacity: 1; }
-  100% { transform: translateY(0); opacity: 0.7; }
-}
-.mystery-arrow {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 6px;
-  animation: arrowBounce 1.2s infinite;
-}
-#musicToggle {
-  transition: opacity 0.3s;
-  background: none;
-}
-#musicToggle svg { filter: drop-shadow(0 2px 8px #bdb2ff44); }
-#musicToggle:active { opacity: 0.7; }
-@media (max-width: 700px) {
-  #musicToggle { top: 8px; right: 8px; }
-}
-#preview { opacity: 0; pointer-events: none; transition: opacity 0.7s; }
-#preview.unlocked { opacity: 1; pointer-events: auto; transition: opacity 0.7s; }
+  /* ...existing styles... */
+  .timeline { cursor: pointer; min-height: 220px; }
+  .timeline-item { transition: opacity 0.5s, transform 0.5s; }
+  .timeline-item.hide { opacity: 0; transform: scale(0.96) translateY(30px); pointer-events: none; }
+  .timeline-item.show { opacity: 1; transform: scale(1) translateY(0); pointer-events: auto; }
   </style>
   <script>
   // 星空背景生成
@@ -290,27 +251,20 @@ h1, h2, p {
   })();
 
   // 分页参数
-  const PAGE_SIZE = 3;
-  let currentPage = 1;
+  let currentIndex = 0;
   let allPhotos = [];
-
-  // 自动加载 desc.json 并渲染图片和描述（时间轴风格+分页）
+  // 自动加载 desc.json 并渲染图片和描述（仅一条，支持左右切换）
   async function loadPhotos() {
     const timeline = document.getElementById('timeline');
-    const pagination = document.getElementById('pagination');
     timeline.innerHTML = '';
-    pagination.innerHTML = '';
     try {
       const resp = await fetch('desc.json');
       if (!resp.ok) throw new Error('desc.json 加载失败');
       const data = await resp.json();
-      // 适配新版结构
       let photos = [];
       if (Array.isArray(data)) {
-        // 兼容旧结构
         photos = data;
       } else if (data && Array.isArray(data.days)) {
-        // 新结构，合并所有 days.items，并保留 date 字段
         data.days.forEach(day => {
           if (Array.isArray(day.items)) {
             day.items.forEach(item => {
@@ -322,171 +276,114 @@ h1, h2, p {
         throw new Error('desc.json 格式错误');
       }
       allPhotos = photos;
-      renderPage(currentPage);
+      renderCurrent();
     } catch (e) {
       timeline.innerHTML = '<div style="color:#c00;text-align:center;width:100%">无法加载 desc.json，<br>请确保通过本地服务器访问（如 VSCode Live Server、Python SimpleHTTPServer 等），否则浏览器安全策略会阻止读取本地文件。<br>错误信息：'+e.message+'</div>';
       allPhotos = [];
-      // 依然允许解锁内容区
-      document.getElementById('preview').classList.add('unlocked');
-      document.getElementById('mysteryMask').style.display = 'none';
     }
   }
-
-  function renderPage(page) {
+  function renderCurrent() {
     const timeline = document.getElementById('timeline');
-    const pagination = document.getElementById('pagination');
     timeline.innerHTML = '';
-    pagination.innerHTML = '';
-    const total = allPhotos.length;
-    const totalPages = Math.ceil(total / PAGE_SIZE);
-    if (page < 1) page = 1;
-    if (page > totalPages) page = totalPages;
-    currentPage = page;
-    const start = (page - 1) * PAGE_SIZE;
-    const end = Math.min(start + PAGE_SIZE, total);
-    const pageItems = allPhotos.slice(start, end);
-    pageItems.forEach((item, idx) => {
-      const itemWrap = document.createElement('div');
-      itemWrap.className = 'timeline-item';
-      const dot = document.createElement('div');
-      dot.className = 'timeline-dot';
-      itemWrap.appendChild(dot);
-      // 神秘标志按钮
-      const secretBtn = document.createElement('button');
-      secretBtn.className = 'secret-btn';
-      secretBtn.innerHTML = `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="15" fill="#bdb2ff" stroke="#a0c4ff" stroke-width="2"/><text x="16" y="21" text-anchor="middle" font-size="18" fill="#232946" font-family="Segoe UI,Arial,sans-serif">?</text></svg><span class='secret-tip'>点我探索</span>`;
-      secretBtn.style.cssText = 'background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;outline:none;';
-      // 内容区域
-      const content = document.createElement('div');
-      content.className = 'timeline-content secret-content';
-      content.style.opacity = '0';
-      content.style.pointerEvents = 'none';
-      content.style.transition = 'opacity 0.7s cubic-bezier(.23,1.02,.32,1)';
-      // 日期大号显示在左上
-      if(item.date) {
-        const date = document.createElement('div');
-        date.className = 'timeline-date';
-        date.textContent = formatDate(item.date);
-        content.appendChild(date);
-      }
-      let card;
-      if(item.type === 'image' || (!item.type && item.src && /\.(jpg|jpeg|png|gif|webp)$/i.test(item.src))) {
-        card = document.createElement('div');
-        card.className = 'photo-card';
-        const img = document.createElement('img');
-        img.src = item.src;
-        img.alt = item.desc || '';
-        img.loading = 'lazy';
-        card.appendChild(img);
-      } else if(item.type === 'video' || (item.src && /\.(mp4|webm|ogg)$/i.test(item.src))) {
-        card = document.createElement('div');
-        card.className = 'photo-card';
-        const video = document.createElement('video');
-        video.src = item.src;
-        video.controls = true;
-        video.style.maxWidth = '180px';
-        video.style.maxHeight = '180px';
-        video.style.borderRadius = '18px';
-        video.style.background = '#f1f8e9';
-        card.appendChild(video);
-      } else if(item.type === 'text' && !item.src) {
-        card = document.createElement('div');
-        card.className = 'mood-card';
-      } else {
-        card = document.createElement('div');
-        card.className = 'photo-card';
-      }
-      if(item.desc) {
-        const desc = document.createElement('div');
-        desc.className = 'desc';
-        desc.textContent = item.desc;
-        card.appendChild(desc);
-      }
-      content.appendChild(card);
-      // 点击神秘标志后显示内容
-      secretBtn.addEventListener('click', function() {
-        content.style.opacity = '1';
-        content.style.pointerEvents = 'auto';
-        secretBtn.style.opacity = '0';
-        secretBtn.style.pointerEvents = 'none';
-        setTimeout(()=>{ secretBtn.style.display = 'none'; }, 700);
-      });
-      itemWrap.appendChild(secretBtn);
-      itemWrap.appendChild(content);
-      timeline.appendChild(itemWrap);
-    });
-    // 分页按钮
-    if (total > PAGE_SIZE) {
-      const prevBtn = document.createElement('button');
-      prevBtn.textContent = '上一页';
-      prevBtn.disabled = currentPage === 1;
-      prevBtn.style.cssText = 'padding:6px 18px;border-radius:8px;border:none;background:#a0c4ff;color:#232946;font-size:1rem;cursor:pointer;opacity:'+(currentPage===1?0.5:1)+';';
-      prevBtn.onclick = () => { renderPage(currentPage-1); if (isMobile()) window.scrollTo({top:0,behavior:'smooth'}); };
-      pagination.appendChild(prevBtn);
-      const pageInfo = document.createElement('span');
-      pageInfo.textContent = `第 ${currentPage} / ${totalPages} 页`;
-      pageInfo.style.cssText = 'color:#bdb2ff;font-size:1.08rem;margin:0 8px;';
-      pagination.appendChild(pageInfo);
-      const nextBtn = document.createElement('button');
-      nextBtn.textContent = '下一页';
-      nextBtn.disabled = currentPage === totalPages;
-      nextBtn.style.cssText = 'padding:6px 18px;border-radius:8px;border:none;background:#a0c4ff;color:#232946;font-size:1rem;cursor:pointer;opacity:'+(currentPage===totalPages?0.5:1)+';';
-      nextBtn.onclick = () => { renderPage(currentPage+1); if (isMobile()) window.scrollTo({top:0,behavior:'smooth'}); };
-      pagination.appendChild(nextBtn);
-    }
-    if (allPhotos.length === 0) {
+    if (!allPhotos.length) {
       timeline.innerHTML = '<div style="color:#888;text-align:center;width:100%">暂无照片，请在 images/ 目录添加图片并编辑 desc.json</div>';
+      return;
     }
+    if (currentIndex < 0) currentIndex = 0;
+    if (currentIndex >= allPhotos.length) currentIndex = allPhotos.length - 1;
+    const item = allPhotos[currentIndex];
+    const itemWrap = document.createElement('div');
+    itemWrap.className = 'timeline-item show';
+    const dot = document.createElement('div');
+    dot.className = 'timeline-dot';
+    itemWrap.appendChild(dot);
+    const content = document.createElement('div');
+    content.className = 'timeline-content';
+    // 日期大号显示在左上
+    if(item.date) {
+      const date = document.createElement('div');
+      date.className = 'timeline-date';
+      date.textContent = formatDate(item.date);
+      content.appendChild(date);
+    }
+    // 天标题/描述
+    if(item.dayTitle) {
+      const t = document.createElement('div');
+      t.style.cssText = 'color:#bdb2ff;font-size:1.12rem;font-family:Segoe Script,Segoe UI,cursive;margin-bottom:2px;';
+      t.textContent = item.dayTitle;
+      content.appendChild(t);
+    }
+    if(item.dayDesc) {
+      const d = document.createElement('div');
+      d.style.cssText = 'color:#a0c4ff;font-size:1.01rem;margin-bottom:6px;';
+      d.textContent = item.dayDesc;
+      content.appendChild(d);
+    }
+    let card;
+    if(item.type === 'image' || (!item.type && item.src && /\.(jpg|jpeg|png|gif|webp)$/i.test(item.src))) {
+      card = document.createElement('div');
+      card.className = 'photo-card';
+      const img = document.createElement('img');
+      img.src = item.src;
+      img.alt = item.desc || '';
+      img.loading = 'lazy';
+      card.appendChild(img);
+    } else if(item.type === 'video' || (item.src && /\.(mp4|webm|ogg)$/i.test(item.src))) {
+      card = document.createElement('div');
+      card.className = 'photo-card';
+      const video = document.createElement('video');
+      video.src = item.src;
+      video.controls = true;
+      video.style.maxWidth = '180px';
+      video.style.maxHeight = '180px';
+      video.style.borderRadius = '18px';
+      video.style.background = '#f1f8e9';
+      card.appendChild(video);
+    } else if(item.type === 'text' && !item.src) {
+      card = document.createElement('div');
+      card.className = 'mood-card';
+    } else {
+      card = document.createElement('div');
+      card.className = 'photo-card';
+    }
+    if(item.desc) {
+      const desc = document.createElement('div');
+      desc.className = 'desc';
+      desc.textContent = item.desc;
+      card.appendChild(desc);
+    }
+    // 可选：显示 tags
+    if(item.tags && item.tags.length) {
+      const tags = document.createElement('div');
+      tags.style.cssText = 'margin-top:4px;color:#ffe082;font-size:0.98rem;';
+      tags.textContent = '#' + item.tags.join(' #');
+      card.appendChild(tags);
+    }
+    content.appendChild(card);
+    itemWrap.appendChild(content);
+    timeline.appendChild(itemWrap);
   }
-
-  // 新增：格式化日期函数
-  function formatDate(dateStr) {
-    if(!dateStr) return '';
-    const d = new Date(dateStr);
-    if(isNaN(d)) return dateStr;
-    return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
-  }
-  loadPhotos();
-  // 重新触发时间轴动画（翻页时）
-  function reAnimateTimeline() {
-    document.querySelectorAll('.timeline-item').forEach((el,i)=>{
-      el.style.animation = 'none';
-      el.offsetHeight; // 触发重绘
-      el.style.animation = '';
+  // 点击 timeline 区域左右切换
+  document.addEventListener('DOMContentLoaded', function() {
+    const timeline = document.getElementById('timeline');
+    timeline.addEventListener('click', function(e) {
+      const rect = timeline.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      if (x > rect.width / 2) {
+        // 右侧，下一条
+        if (currentIndex < allPhotos.length - 1) {
+          currentIndex++;
+          renderCurrent();
+        }
+      } else {
+        // 左侧，上一条
+        if (currentIndex > 0) {
+          currentIndex--;
+          renderCurrent();
+        }
+      }
     });
-  }
-  // 在 renderPage 后调用
-  const oldRenderPage = renderPage;
-  renderPage = function(page) {
-    oldRenderPage(page);
-    setTimeout(reAnimateTimeline, 10);
-  }
-  // 新增：判断是否为移动端
-  function isMobile() {
-    return /Mobi|Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
-  }
-  // 神秘标志捉迷藏交互
-  let mysteryUnlocked = false;
-  function unlockMystery() {
-    if (mysteryUnlocked) return;
-    mysteryUnlocked = true;
-    document.getElementById('mysteryMask').style.opacity = 0;
-    setTimeout(function(){
-      document.getElementById('mysteryMask').style.display = 'none';
-      document.getElementById('preview').classList.add('unlocked');
-    }, 700);
-    // 自动播放背景音乐
-    var audio = document.getElementById('bgm');
-    if(audio) {
-      audio.play().catch(function(){});
-      updateMusicIcon();
-    }
-  }
-  document.getElementById('mysteryBtn').addEventListener('click', unlockMystery);
-  // 6秒未点击自动触发
-  setTimeout(function(){
-    if (!mysteryUnlocked) unlockMystery();
-  }, 6000);
+  });
   // 音乐开关按钮逻辑
   function updateMusicIcon() {
     var audio = document.getElementById('bgm');
@@ -511,8 +408,14 @@ h1, h2, p {
   });
   document.getElementById('bgm').addEventListener('play', updateMusicIcon);
   document.getElementById('bgm').addEventListener('pause', updateMusicIcon);
-  // 初始隐藏内容
-  document.getElementById('preview').classList.remove('unlocked');
+  // 新增：格式化日期函数
+  function formatDate(dateStr) {
+    if(!dateStr) return '';
+    const d = new Date(dateStr);
+    if(isNaN(d)) return dateStr;
+    return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  }
+  loadPhotos();
   </script>
 </body>
 </html>
