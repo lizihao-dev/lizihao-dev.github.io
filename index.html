@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>小王子的治愈世界</title>
+  <title>小王子的日常分享</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
@@ -66,7 +66,7 @@
       50% { opacity: 0.2; }
     }
     
-    /* 顶部导航栏 */
+    /* 固定头部 */
     .header-fixed {
       position: fixed;
       top: 0; 
@@ -102,7 +102,7 @@
       max-width: 80%;
     }
     
-    /* 主容器 */
+    /* 内容容器 */
     .container {
       margin: 0 auto;
       margin-top: 90px;
@@ -116,7 +116,7 @@
       padding: 0 8px 32px 8px;
     }
     
-    /* 时间轴样式 */
+    /* 时间线样式 */
     .timeline {
       width: 100%;
       max-width: 100vw;
@@ -176,7 +176,7 @@
       margin-bottom: 6px;
     }
     
-    /* 卡片样式 */
+    /* 内容卡片 */
     .card {
       background: rgba(255,255,255,0.92);
       border-radius: 18px;
@@ -242,7 +242,7 @@
       letter-spacing: 0.5px;
     }
     
-    /* 首条高亮样式 */
+    /* 高亮日期 */
     .highlight-day {
       background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
       box-shadow: 0 8px 32px rgba(189, 178, 255, 0.33), 0 1.5px 0 var(--light);
@@ -260,7 +260,7 @@
     }
     
     .highlight-day::before {
-      content: '★';
+      content: '✨';
       position: absolute;
       left: 18px;
       top: 18px;
@@ -270,7 +270,7 @@
       pointer-events: none;
     }
     
-    /* 首页动画容器 */
+    /* 欢迎页 */
     #healing-home {
       position: fixed;
       z-index: 9999;
@@ -294,7 +294,7 @@
       overflow: hidden;
     }
     
-    /* 波浪动画使用CSS实现 */
+    /* 波浪动画 */
     .wave-layer {
       position: absolute;
       bottom: 0;
@@ -322,7 +322,7 @@
       100% { transform: translateX(-50%); }
     }
     
-    /* 漂浮泡泡 */
+    /* 气泡动画 */
     .bubble {
       position: absolute;
       background: rgba(255,255,255,0.18);
@@ -330,7 +330,7 @@
       filter: blur(1.5px);
     }
     
-    /* 海鸥动画使用CSS关键帧 */
+    /* 海鸥动画 */
     .seagull {
       position: absolute;
       z-index: 3;
@@ -364,7 +364,7 @@
       100% { transform: translate(10vw, 8vh); }
     }
     
-    /* 帆船动画使用CSS */
+    /* 帆船动画 */
     .sail-boat {
       position: absolute;
       left: 55vw;
@@ -388,7 +388,7 @@
       100% { transform: translateY(-60vh) scale(1.2); opacity: 0; }
     }
     
-    /* 首页标题 */
+    /* 欢迎页标题 */
     .welcome-title {
       position: absolute;
       top: 30vh;
@@ -457,7 +457,7 @@
       transform: translateX(0);
     }
     
-    /* 相册弹窗 */
+    /* 相册模态框 */
     #album-modal {
       display: none;
       position: fixed;
@@ -522,7 +522,7 @@
       transform: scale(1.04);
     }
     
-    /* 大图预览 */
+    /* 图片查看器 */
     .image-viewer {
       position: fixed;
       z-index: 3000;
@@ -568,7 +568,7 @@
       to { opacity: 1; }
     }
     
-    /* 加载指示器 */
+    /* 加载动画 */
     .loader {
       display: inline-block;
       width: 40px;
@@ -594,7 +594,7 @@
       text-align: center;
     }
     
-    /* 响应式设计 */
+    /* 响应式适配 */
     @media (max-width: 900px) {
       .container { max-width: 99vw; }
       .timeline { max-width: 99vw; }
@@ -693,17 +693,17 @@
   <!-- 星空背景 -->
   <div class="stars" id="stars"></div>
   
-  <!-- 首页动画容器 -->
+  <!-- 欢迎页 -->
   <div id="healing-home">
     <div id="healing-content">
-      <!-- 波浪效果使用CSS实现 -->
+      <!-- 波浪动画 -->
       <div class="wave-layer wave-1"></div>
       <div class="wave-layer wave-2"></div>
       
-      <!-- 漂浮泡泡 -->
+      <!-- 气泡动画 -->
       <div id="bubbles"></div>
       
-      <!-- 孤帆 -->
+      <!-- 帆船 -->
       <div class="sail-boat">
         <svg viewBox="0 0 80 80">
           <rect x="38" y="40" width="4" height="28" fill="#795548"/>
@@ -712,7 +712,7 @@
         </svg>
       </div>
       
-      <!-- 多只海鸥 -->
+      <!-- 海鸥 -->
       <div class="seagull seagull-1">
         <svg viewBox="0 0 60 40">
           <path d="M5,30 Q20,10 30,20 Q40,30 55,10" stroke="#fff" stroke-width="3" fill="none"/>
@@ -727,41 +727,41 @@
       
       <!-- 欢迎标题 -->
       <div class="welcome-title">
-        <h1>你好，欢迎来到治愈时光</h1>
-        <p>大海、孤帆、海鸥，愿你在这里收获温柔与力量</p>
-        <button id="enter-btn" class="btn">点击进入</button>
+        <h1>小王子的日常分享</h1>
+        <p>这里有帆船、海鸥和海浪，一起探索生活中的美好瞬间吧</p>
+        <button id="enter-btn" class="btn">进入主页</button>
       </div>
     </div>
   </div>
   
-  <!-- 主内容容器 -->
+  <!-- 主内容区 -->
   <div id="main-content" style="display:none;">
-    <!-- 顶部导航 -->
+    <!-- 固定头部 -->
     <div class="header-fixed">
-      <h1>小王子的世界</h1>
-      <p>欢迎来到我的个人博客！这里你可以浏览我分享的照片和心情。<br>“所有的大人都曾经是小孩，虽然，只有少数的人记得。”</p>
+      <h1>小王子的日常分享</h1>
+      <p>记录生活中的点滴瞬间，无论是风景还是心情，都是时光的礼物。<br>愿这些碎片能拼凑出温暖的记忆，成为疲惫时的慰藉。</p>
       <button id="album-btn" class="btn" style="margin-top:8px;padding:6px 22px;font-size:1.08rem;">
         <i class="fas fa-images"></i> 相册
       </button>
     </div>
     
-    <!-- 时间轴容器 -->
+    <!-- 时间线内容 -->
     <div class="container">
       <div id="preview">
         <div class="timeline" id="timeline">
           <div class="loading-state">
             <div class="loader"></div>
-            <p>正在整理美好回忆...</p>
+            <p>加载中，请稍候...</p>
           </div>
         </div>
       </div>
     </div>
     
-    <!-- 相册弹窗 -->
+    <!-- 相册模态框 -->
     <div id="album-modal">
       <div class="album-container">
-        <button id="album-close" class="close-btn">✕</button>
-        <h2 style="text-align:center;color:#bdb2ff;font-size:1.5rem;margin-bottom:18px;">我的相册</h2>
+        <button id="album-close" class="close-btn">×</button>
+        <h2 style="text-align:center;color:#bdb2ff;font-size:1.5rem;margin-bottom:18px;">所有照片</h2>
         <div id="album-grid"></div>
       </div>
     </div>
@@ -769,34 +769,34 @@
     <!-- 音乐控制 -->
     <div class="music-controls">
       <select id="musicSelect" title="选择背景音乐">
-        <option value="https://lzhimagebed.xyz/%E4%B9%B0%E8%BE%A3%E6%A4%92%E4%B9%9F%E7%94%A8%E5%88%B8%20-%20%E8%B5%B7%E9%A3%8E%E4%BA%86.mp3">起风了 - 买辣椒也用券</option>
-        <option value="https://lzhimagebed.xyz/%E9%99%88%E5%A5%95%E8%BF%85%20-%20%E6%B7%98%E6%B1%B0.mp3">淘汰 - 陈奕迅</option>
-        <option value="https://lzhimagebed.xyz/%E6%96%BD%E5%8B%BF%E8%A8%80%20-%20%E8%BD%BB%E9%9F%B3%E4%B9%90%E8%88%92%E7%BC%93%E6%94%BE%E6%9D%BE%E7%BA%AF%E9%9F%B3%E4%B9%90%EF%BC%9A%E7%AD%89%E9%A3%8E%E7%9A%84%E6%97%A5%E5%AD%90.mp3">等风的日子</option>
-        <option value="https://lzhimagebed.xyz/%E8%8F%B2%E8%8F%B2%E5%85%AC%E4%B8%BB%20-%20%E7%AC%AC57%E6%AC%A1%E5%8F%96%E6%B6%88%E5%8F%91%E9%80%81.mp3">第57次取消发送- 菲菲公主</option>
+        <option value="https://lzhimagebed.xyz/%E4%B9%B0%E8%BE%A3%E6%A4%92%E4%B9%9F%E7%94%A8%E5%88%B8%20-%20%E8%B5%B7%E9%A3%8E%E4%BA%86.mp3">买辣椒也用券 - 起风了</option>
+        <option value="https://lzhimagebed.xyz/%E9%99%88%E5%A5%95%E8%BF%85%20-%20%E6%B7%98%E6%B1%B0.mp3">陈奕迅 - 孤勇者</option>
+        <option value="https://lzhimagebed.xyz/%E6%96%BD%E5%8B%BF%E8%A8%80%20-%20%E8%BD%BB%E9%9F%B3%E4%B9%90%E8%88%92%E7%BC%93%E6%94%BE%E6%9D%BE%E7%BA%AF%E9%9F%B3%E4%B9%90%EF%BC%9A%E7%AD%89%E9%A3%8E%E7%9A%84%E6%97%A5%E5%AD%90.mp3">轻音乐 - 等风的日子</option>
+        <option value="https://lzhimagebed.xyz/%E8%8F%B2%E8%8F%B2%E5%85%AC%E4%B8%BB%20-%20%E7%AC%AC57%E6%AC%A1%E5%8F%96%E6%B6%88%E5%8F%91%E9%80%81.mp3">羊羊主播 - 第57次取消发送</option>
       </select>
-      <button id="musicToggle" class="music-btn" title="音乐开关">♪</button>
+      <button id="musicToggle" class="music-btn" title="播放/暂停音乐">▶</button>
     </div>
     
-    <audio id="bgm" src="https://lzhimagebed.xyz/%E4%B9%B0%E8%BE%A3%E6%A4%92%E4%B9%9F%E7%94%A8%E5%88%B8%20-%20%E8%B5%B7%E9%A3%8E%E4%BA%86.mp3" loop preload="auto" style="display:none"></audio>
+    <audio id="bgm" src="https://lzhimagebed.xyz/%E6%96%BD%E5%8B%BF%E8%A8%80%20-%20%E8%BD%BB%E9%9F%B3%E4%B9%90%E8%88%92%E7%BC%93%E6%94%BE%E6%9D%BE%E7%BA%AF%E9%9F%B3%E4%B9%90%EF%BC%9A%E7%AD%89%E9%A3%8E%E7%9A%84%E6%97%A5%E5%AD%90_EG.flac" loop preload="auto" style="display:none"></audio>
   </div>
   
   <script>
-    // 页面加载时初始化
+    // 页面加载完成后初始化
     document.addEventListener('DOMContentLoaded', function() {
-      // 初始化星空背景
+      // 初始化星空
       initStars();
       
-      // 初始化漂浮泡泡
+      // 初始化气泡
       initBubbles();
       
-      // 设置事件监听器
+      // 设置事件监听
       setupEventListeners();
       
-      // 自动切换背景
+      // 初始化背景切换
       initBackgroundSwitcher();
     });
     
-    // 初始化星空背景
+    // 初始化星空
     function initStars() {
       const stars = document.getElementById('stars');
       const starCount = 80;
@@ -811,7 +811,7 @@
       }
     }
     
-    // 初始化漂浮泡泡
+    // 初始化气泡
     function initBubbles() {
       const bubbles = document.getElementById('bubbles');
       const bubbleCount = 18;
@@ -828,16 +828,16 @@
       }
     }
     
-    // 设置事件监听器
+    // 设置事件监听
     function setupEventListeners() {
-      // 首页进入按钮
+      // 进入主页按钮
       document.getElementById('enter-btn').addEventListener('click', function() {
         document.getElementById('healing-home').style.opacity = 0;
         setTimeout(function() {
           document.getElementById('healing-home').style.display = 'none';
           document.getElementById('main-content').style.display = '';
           
-          // 加载照片内容
+          // 加载照片
           setTimeout(loadPhotos, 300);
         }, 800);
       });
@@ -848,10 +848,10 @@
       // 关闭相册按钮
       document.getElementById('album-close').addEventListener('click', closeAlbum);
       
-      // 音乐切换按钮
+      // 音乐播放/暂停
       document.getElementById('musicToggle').addEventListener('click', toggleMusic);
       
-      // 音乐选择下拉框
+      // 切换音乐
       document.getElementById('musicSelect').addEventListener('change', changeMusic);
     }
     
@@ -870,43 +870,40 @@
       setInterval(switchBg, 12000);
     }
     
-    // 加载照片内容
+    // 加载照片
     async function loadPhotos() {
       const timeline = document.getElementById('timeline');
       
       try {
         // 显示加载状态
-        timeline.innerHTML = '<div class="loading-state"><div class="loader"></div><p>正在加载美好回忆...</p></div>';
+        timeline.innerHTML = '<div class="loading-state"><div class="loader"></div><p>加载中，请稍候...</p></div>';
         
-        // 从 desc.json 加载数据
+        // 获取JSON数据
         const response = await fetch('desc.json?t=' + new Date().getTime());
         if (!response.ok) {
           throw new Error('数据加载失败: ' + response.status);
         }
         const data = await response.json();
         
-        // 确保数据格式正确
+        // 验证数据格式
         if (!data.days || !Array.isArray(data.days)) {
           throw new Error('数据格式错误');
         }
         
-        // 按日期倒序排列（最新的在前）
+        // 按日期排序（最新的在前）
         const days = data.days.slice().sort((a, b) => {
           return new Date(b.date) - new Date(a.date);
         });
         
-        // 清除加载状态
-        timeline.innerHTML = '';
-        
-        // 渲染时间轴
+        // 渲染时间线
         renderTimeline(days);
         
       } catch (error) {
-        timeline.innerHTML = '<div class="error">加载照片时出错: ' + error.message + '</div>';
+        timeline.innerHTML = `<div class="error" style="color: #ff5252; text-align: center; padding: 20px;">加载失败: ${error.message}</div>`;
       }
     }
     
-    // 渲染时间轴
+    // 渲染时间线
     function renderTimeline(days) {
       const timeline = document.getElementById('timeline');
       timeline.innerHTML = '';
@@ -915,7 +912,7 @@
         const dayBlock = document.createElement('div');
         dayBlock.className = 'day-block' + (idx === 0 ? ' highlight-day' : '');
         
-        // 日期、标题、描述
+        // 日期标题
         const dayHeader = document.createElement('div');
         dayHeader.className = 'day-header';
         dayHeader.innerHTML = `
@@ -925,11 +922,11 @@
         `;
         dayBlock.appendChild(dayHeader);
         
-        // 创建内容轮播
+        // 内容轮播
         const carousel = document.createElement('div');
         carousel.className = 'day-carousel';
         
-        // 渲染轮播内容
+        // 渲染内容项
         renderCarouselItems(carousel, day.items);
         
         dayBlock.appendChild(carousel);
@@ -937,7 +934,7 @@
       });
     }
     
-    // 渲染轮播内容
+    // 渲染内容项
     function renderCarouselItems(carousel, items) {
       if (!items || items.length === 0) return;
       
@@ -992,6 +989,7 @@
       img.src = item.src;
       img.alt = item.desc || '';
       img.loading = 'lazy';
+      img.onclick = () => showBigImage(item.src); // 点击放大图片
       
       card.appendChild(img);
       
@@ -1018,28 +1016,23 @@
       const albumGrid = document.getElementById('album-grid');
       
       // 显示加载状态
-      albumGrid.innerHTML = '<div class="loading-state"><div class="loader"></div><p>正在加载相册...</p></div>';
+      albumGrid.innerHTML = '<div class="loading-state"><div class="loader"></div><p>加载相册中...</p></div>';
       albumModal.style.display = 'flex';
       
       try {
-        // 从 desc.json 加载数据
+        // 获取图片数据
         const response = await fetch('desc.json?t=' + new Date().getTime());
         if (!response.ok) {
           throw new Error('数据加载失败: ' + response.status);
         }
         const data = await response.json();
         
-        // 确保数据格式正确
-        if (!data.days || !Array.isArray(data.days)) {
-          throw new Error('数据格式错误');
-        }
-        
-        // 收集所有图片URL
+        // 提取所有图片URL
         const images = [];
         data.days.forEach(day => {
           day.items.forEach(item => {
-            // 处理单个或多个图片/视频
-            if (item.type === 'image' || (!item.type && item.src && /\.(jpg|jpeg|png|gif|webp)$/i.test(item.src))) {
+            if (item.type === 'image' || item.type === 'picture' || item.type === '照片' || 
+                (!item.type && item.src && /\.(jpg|jpeg|png|gif|webp)$/i.test(item.src))) {
               if (Array.isArray(item.src)) {
                 item.src.forEach(src => images.push(src.trim()));
               } else {
@@ -1049,17 +1042,18 @@
           });
         });
         
-        // 清空并填充相册
+        // 渲染相册
         albumGrid.innerHTML = '';
         images.forEach(url => {
           const img = document.createElement('img');
           img.src = url;
+          img.alt = '相册图片';
           img.onclick = () => showBigImage(url);
           albumGrid.appendChild(img);
         });
         
       } catch (error) {
-        albumGrid.innerHTML = '<div class="error">加载相册出错: ' + error.message + '</div>';
+        albumGrid.innerHTML = `<div class="error" style="color: #ff5252; text-align: center; padding: 20px;">相册加载失败: ${error.message}</div>`;
       }
     }
     
@@ -1072,12 +1066,17 @@
     function showBigImage(url) {
       const viewer = document.createElement('div');
       viewer.className = 'image-viewer';
-      viewer.innerHTML = `
-        <img src="${url}" alt="预览">
-        <button class="close-btn" onclick="document.body.removeChild(this.parentNode)">✕</button>
-      `;
       
-      // 点击背景关闭
+      const img = document.createElement('img');
+      img.src = url;
+      img.alt = '大图预览';
+      
+      const closeBtn = document.createElement('button');
+      closeBtn.className = 'close-btn';
+      closeBtn.textContent = '×';
+      closeBtn.addEventListener('click', () => document.body.removeChild(viewer));
+      
+      // 点击空白处关闭
       viewer.addEventListener('click', function(e) {
         if (e.target === this) {
           document.body.removeChild(viewer);
@@ -1085,38 +1084,47 @@
       });
       
       // ESC键关闭
-      document.addEventListener('keydown', function closeOnEsc(e) {
+      const handleEsc = (e) => {
         if (e.key === 'Escape') {
           document.body.removeChild(viewer);
-          document.removeEventListener('keydown', closeOnEsc);
+          document.removeEventListener('keydown', handleEsc);
         }
-      });
+      };
+      document.addEventListener('keydown', handleEsc);
       
+      viewer.appendChild(img);
+      viewer.appendChild(closeBtn);
       document.body.appendChild(viewer);
     }
     
-    // 切换音乐
+    // 切换音乐播放/暂停
     function toggleMusic() {
       const audio = document.getElementById('bgm');
       const btn = document.getElementById('musicToggle');
       
       if (audio.paused) {
-        audio.play();
-        btn.textContent = '♪';
+        audio.play().catch(err => {
+          console.log('播放失败:', err);
+          alert('请手动点击播放按钮开始音乐（浏览器限制）');
+        });
+        btn.textContent = '⏸';
       } else {
         audio.pause();
-        btn.textContent = '🔇';
+        btn.textContent = '▶';
       }
     }
     
-    // 更改音乐
+    // 切换音乐
     function changeMusic() {
       const audio = document.getElementById('bgm');
       const select = document.getElementById('musicSelect');
       
       audio.pause();
       audio.src = select.value;
-      audio.play();
+      audio.play().catch(err => {
+        console.log('播放失败:', err);
+      });
+      document.getElementById('musicToggle').textContent = '⏸';
     }
   </script>
 </body>
