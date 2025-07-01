@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,60 +18,80 @@
       --success: #a5d6a7;
       --error: #ff5252;
     }
-    
+
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-    
+
     body {
       font-family: 'HarmonyOS Sans', 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
       background: linear-gradient(135deg, #232946 0%, #1a1a2e 100%);
       color: var(--light);
       min-height: 100vh;
-      transition: background 1.2s cubic-bezier(.23,1.02,.32,1);
+      transition: background 1.2s cubic-bezier(.23, 1.02, .32, 1);
       line-height: 1.6;
       overflow-x: hidden;
     }
-    
-    body.bg1 { background: linear-gradient(135deg, #232946 0%, #1a1a2e 100%); }
-    body.bg2 { background: linear-gradient(120deg, #1e3c72 0%, #2a5298 100%); }
-    body.bg3 { background: linear-gradient(135deg, #232946 0%, #bdb2ff 100%); }
-    body.bg4 { background: linear-gradient(120deg, #232946 0%, #a0c4ff 100%); }
-    body.bg5 { background: linear-gradient(135deg, #232946 0%, #f8b500 100%); }
-    
+
+    body.bg1 {
+      background: linear-gradient(135deg, #232946 0%, #1a1a2e 100%);
+    }
+
+    body.bg2 {
+      background: linear-gradient(120deg, #1e3c72 0%, #2a5298 100%);
+    }
+
+    body.bg3 {
+      background: linear-gradient(135deg, #232946 0%, #bdb2ff 100%);
+    }
+
+    body.bg4 {
+      background: linear-gradient(120deg, #232946 0%, #a0c4ff 100%);
+    }
+
+    body.bg5 {
+      background: linear-gradient(135deg, #232946 0%, #f8b500 100%);
+    }
+
     /* 星空背景 */
     .stars {
       position: fixed;
-      left: 0; 
-      top: 0; 
-      width: 100vw; 
+      left: 0;
+      top: 0;
+      width: 100vw;
       height: 100vh;
       pointer-events: none;
       z-index: -1;
     }
-    
+
     .star {
       position: absolute;
-      width: 2.5px; 
+      width: 2.5px;
       height: 2.5px;
       background: #fffbe7;
       border-radius: 50%;
       opacity: 0.7;
       animation: twinkle 2.5s infinite ease-in-out;
     }
-    
+
     @keyframes twinkle {
-      0%,100% { opacity: 0.7; }
-      50% { opacity: 0.2; }
+      0%,
+      100% {
+        opacity: 0.7;
+      }
+
+      50% {
+        opacity: 0.2;
+      }
     }
-    
+
     /* 固定头部 */
     .header-fixed {
       position: fixed;
-      top: 0; 
-      left: 0; 
+      top: 0;
+      left: 0;
       width: 100vw;
       z-index: 100;
       background: rgba(34, 39, 63, 0.98);
@@ -84,7 +105,7 @@
       border-bottom-left-radius: 24px;
       border-bottom-right-radius: 24px;
     }
-    
+
     .header-fixed h1 {
       color: var(--light);
       font-size: 2.1rem;
@@ -93,7 +114,7 @@
       letter-spacing: 1px;
       font-family: 'Segoe Script', 'Segoe UI', cursive, sans-serif;
     }
-    
+
     .header-fixed p {
       color: var(--light);
       font-size: 1.08rem;
@@ -101,7 +122,7 @@
       margin: 0;
       max-width: 80%;
     }
-    
+
     /* 内容容器 */
     .container {
       margin: 0 auto;
@@ -115,7 +136,7 @@
       justify-content: flex-start;
       padding: 0 8px 32px 8px;
     }
-    
+
     /* 时间线样式 */
     .timeline {
       width: 100%;
@@ -127,7 +148,7 @@
       justify-content: flex-start;
       gap: 32px;
     }
-    
+
     .day-block {
       width: 100%;
       max-width: 700px;
@@ -140,20 +161,20 @@
       align-items: center;
       padding: 0;
     }
-    
+
     .day-header {
       width: 100%;
       text-align: left;
       margin-bottom: 8px;
       padding-left: 8px;
     }
-    
+
     .timeline-date {
       color: var(--primary);
       font-size: 1.18rem;
       font-family: 'Segoe Script', 'Segoe UI', cursive, sans-serif;
       letter-spacing: 1px;
-      background: rgba(34,39,63,0.92);
+      background: rgba(34, 39, 63, 0.92);
       padding: 2px 16px 2px 8px;
       border-radius: 16px;
       box-shadow: 0 2px 8px var(--shadow);
@@ -162,23 +183,23 @@
       z-index: 3;
       margin-bottom: 8px;
     }
-    
+
     .day-title {
       color: var(--primary);
       font-size: 1.13rem;
       font-family: 'Segoe Script', 'Segoe UI', cursive, sans-serif;
       margin-bottom: 2px;
     }
-    
+
     .day-desc {
       color: var(--secondary);
       font-size: 1.01rem;
       margin-bottom: 6px;
     }
-    
+
     /* 内容卡片 */
     .card {
-      background: rgba(255,255,255,0.92);
+      background: rgba(255, 255, 255, 0.92);
       border-radius: 18px;
       box-shadow: 0 2px 16px var(--shadow);
       padding: 32px 24px 24px 24px;
@@ -193,8 +214,9 @@
       font-size: 1.18rem;
       transition: box-shadow 0.2s;
     }
-    
-    .photo-card, .mood-card {
+
+    .photo-card,
+    .mood-card {
       background: linear-gradient(120deg, var(--light) 60%, #e0c3fc 100%);
       border-radius: 22px;
       box-shadow: 0 4px 24px rgba(189, 178, 255, 0.2), 0 1.5px 0 var(--light);
@@ -212,13 +234,15 @@
       position: relative;
       overflow: hidden;
     }
-    
-    .photo-card:hover, .mood-card:hover {
+
+    .photo-card:hover,
+    .mood-card:hover {
       box-shadow: 0 8px 32px rgba(160, 196, 255, 0.33), 0 1.5px 0 var(--light);
       transform: translateY(-2px) scale(1.012);
     }
-    
-    .photo-card img, .photo-card video {
+
+    .photo-card img,
+    .photo-card video {
       border-radius: 16px;
       box-shadow: 0 2px 12px rgba(189, 178, 255, 0.13);
       background: #f1f8e9;
@@ -226,12 +250,13 @@
       transition: box-shadow 0.2s, transform 0.18s;
       max-width: 100%;
     }
-    
-    .photo-card img:hover, .photo-card video:hover {
+
+    .photo-card img:hover,
+    .photo-card video:hover {
       box-shadow: 0 4px 24px rgba(160, 196, 255, 0.33);
       transform: scale(1.03);
     }
-    
+
     .desc {
       color: var(--text);
       font-size: 1.08rem;
@@ -241,7 +266,7 @@
       line-height: 1.7;
       letter-spacing: 0.5px;
     }
-    
+
     /* 高亮日期 */
     .highlight-day {
       background: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
@@ -251,14 +276,21 @@
       margin-top: 18px;
       position: relative;
       overflow: hidden;
-      animation: highlight-fadein 1.2s cubic-bezier(.23,1.02,.32,1);
+      animation: highlight-fadein 1.2s cubic-bezier(.23, 1.02, .32, 1);
     }
-    
+
     @keyframes highlight-fadein {
-      0% { transform: scale(0.98) translateY(30px); opacity: 0; }
-      100% { transform: scale(1) translateY(0); opacity: 1; }
+      0% {
+        transform: scale(0.98) translateY(30px);
+        opacity: 0;
+      }
+
+      100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
     }
-    
+
     .highlight-day::before {
       content: '✨';
       position: absolute;
@@ -269,7 +301,7 @@
       opacity: 0.7;
       pointer-events: none;
     }
-    
+
     /* 欢迎页 */
     #healing-home {
       position: fixed;
@@ -278,7 +310,7 @@
       top: 0;
       width: 100vw;
       height: 100vh;
-      background: linear-gradient(180deg, var(--secondary) 0%, var(--primary) 100%);
+      background: linear-gradient(to bottom, #64b5f6, #1976d2);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -286,14 +318,14 @@
       transition: opacity 0.8s;
       overflow: hidden;
     }
-    
+
     #healing-content {
       position: relative;
       width: 100vw;
       height: 100vh;
       overflow: hidden;
     }
-    
+
     /* 波浪动画 */
     .wave-layer {
       position: absolute;
@@ -303,40 +335,45 @@
       height: 40vh;
       z-index: 1;
     }
-    
+
     .wave-1 {
       background: linear-gradient(to bottom, #64b5f6, #1976d2);
       opacity: 0.7;
       animation: wave-move 8s linear infinite;
       clip-path: path('M0,320 Q300,370 600,320 T1200,320 V400 H0Z');
     }
-    
+
     .wave-2 {
       background: linear-gradient(to bottom, #b3e5fc, #90caf9);
       animation: wave-move 10s linear infinite reverse;
       clip-path: path('M0,300 Q300,350 600,300 T1200,300 V400 H0Z');
     }
-    
+
     @keyframes wave-move {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
     }
-    
+
     /* 气泡动画 */
     .bubble {
       position: absolute;
-      background: rgba(255,255,255,0.18);
+      background: rgba(255, 255, 255, 0.18);
       border-radius: 50%;
       filter: blur(1.5px);
     }
-    
+
     /* 海鸥动画 */
     .seagull {
       position: absolute;
       z-index: 3;
       will-change: transform;
     }
-    
+
     .seagull-1 {
       left: 20vw;
       top: 18vh;
@@ -344,7 +381,7 @@
       height: 40px;
       animation: seagull-fly 6s linear infinite alternate;
     }
-    
+
     .seagull-2 {
       left: 60vw;
       top: 12vh;
@@ -353,17 +390,27 @@
       opacity: 0.7;
       animation: seagull-fly2 7s linear infinite alternate;
     }
-    
+
     @keyframes seagull-fly {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(10vw, -6vh); }
+      0% {
+        transform: translate(0, 0);
+      }
+
+      100% {
+        transform: translate(10vw, -6vh);
+      }
     }
-    
+
     @keyframes seagull-fly2 {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(10vw, 8vh); }
+      0% {
+        transform: translate(0, 0);
+      }
+
+      100% {
+        transform: translate(10vw, 8vh);
+      }
     }
-    
+
     /* 帆船动画 */
     .sail-boat {
       position: absolute;
@@ -375,19 +422,35 @@
       animation: sail-move 8s linear infinite alternate;
       filter: drop-shadow(0 4px 12px rgba(144, 202, 249, 0.8));
       will-change: transform;
+      cursor: pointer;
     }
-    
+
     @keyframes sail-move {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(10vw); }
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(10vw);
+      }
     }
-    
+
     @keyframes bubble-up {
-      0% { transform: translateY(0) scale(1); opacity: 0.7; }
-      80% { opacity: 0.5; }
-      100% { transform: translateY(-60vh) scale(1.2); opacity: 0; }
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.7;
+      }
+
+      80% {
+        opacity: 0.5;
+      }
+
+      100% {
+        transform: translateY(-60vh) scale(1.2);
+        opacity: 0;
+      }
     }
-    
+
     /* 欢迎页标题 */
     .welcome-title {
       position: absolute;
@@ -396,7 +459,7 @@
       text-align: center;
       z-index: 10;
     }
-    
+
     .welcome-title h1 {
       font-size: 2.7rem;
       color: var(--light);
@@ -405,7 +468,7 @@
       font-family: 'Segoe Script', 'Segoe UI', cursive, serif;
       margin-bottom: 16px;
     }
-    
+
     .welcome-title p {
       font-size: 1.25rem;
       color: var(--light);
@@ -414,7 +477,7 @@
       max-width: 80%;
       margin: 0 auto;
     }
-    
+
     /* 按钮样式 */
     .btn {
       margin-top: 36px;
@@ -431,16 +494,16 @@
       position: relative;
       overflow: hidden;
     }
-    
+
     .btn:hover {
       transform: translateY(-3px);
       box-shadow: 0 6px 22px rgba(160, 196, 255, 0.5);
     }
-    
+
     .btn:active {
       transform: translateY(1px);
     }
-    
+
     .btn::after {
       content: '';
       position: absolute;
@@ -452,11 +515,11 @@
       transform: translateX(-100%);
       transition: transform 0.3s;
     }
-    
+
     .btn:hover::after {
       transform: translateX(0);
     }
-    
+
     /* 相册模态框 */
     #album-modal {
       display: none;
@@ -466,15 +529,15 @@
       top: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(34,39,63,0.92);
+      background: rgba(34, 39, 63, 0.92);
       -webkit-backdrop-filter: blur(2px);
       backdrop-filter: blur(2px);
       align-items: center;
       justify-content: center;
     }
-    
+
     .album-container {
-      background: rgba(255,255,255,0.98);
+      background: rgba(255, 255, 255, 0.98);
       border-radius: 24px;
       max-width: 900px;
       width: 96vw;
@@ -484,7 +547,7 @@
       padding: 32px 18px 18px 18px;
       position: relative;
     }
-    
+
     #album-close {
       position: absolute;
       top: 18px;
@@ -496,17 +559,17 @@
       cursor: pointer;
       transition: transform 0.2s;
     }
-    
+
     #album-close:hover {
       transform: rotate(90deg);
     }
-    
+
     #album-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 18px;
     }
-    
+
     #album-grid img {
       width: 100%;
       height: 150px;
@@ -516,12 +579,12 @@
       cursor: pointer;
       transition: all 0.3s;
     }
-    
+
     #album-grid img:hover {
       box-shadow: 0 4px 24px rgba(160, 196, 255, 0.53);
       transform: scale(1.04);
     }
-    
+
     /* 图片查看器 */
     .image-viewer {
       position: fixed;
@@ -536,7 +599,7 @@
       justify-content: center;
       animation: fadein 0.3s;
     }
-    
+
     .image-viewer img {
       max-width: 92vw;
       max-height: 88vh;
@@ -545,7 +608,7 @@
       background: var(--light);
       object-fit: contain;
     }
-    
+
     .close-btn {
       position: absolute;
       top: 24px;
@@ -558,16 +621,21 @@
       z-index: 10;
       transition: transform 0.2s;
     }
-    
+
     .close-btn:hover {
       transform: scale(1.2);
     }
-    
+
     @keyframes fadein {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
     }
-    
+
     /* 加载动画 */
     .loader {
       display: inline-block;
@@ -579,11 +647,13 @@
       animation: spin 1s ease-in-out infinite;
       margin-bottom: 20px;
     }
-    
+
     @keyframes spin {
-      to { transform: rotate(360deg); }
+      to {
+        transform: rotate(360deg);
+      }
     }
-    
+
     .loading-state {
       display: flex;
       flex-direction: column;
@@ -593,57 +663,97 @@
       color: var(--light);
       text-align: center;
     }
-    
+
     /* 响应式适配 */
     @media (max-width: 900px) {
-      .container { max-width: 99vw; }
-      .timeline { max-width: 99vw; }
-      .photo-card, .mood-card { max-width: 98vw; }
-      .photo-card img { max-width: 94vw; max-height: 52vw; }
-      .photo-card .desc, .mood-card .desc { max-width: 94vw; }
+      .container {
+        max-width: 99vw;
+      }
+
+      .timeline {
+        max-width: 99vw;
+      }
+
+      .photo-card,
+      .mood-card {
+        max-width: 98vw;
+      }
+
+      .photo-card img {
+        max-width: 94vw;
+        max-height: 52vw;
+      }
+
+      .photo-card .desc,
+      .mood-card .desc {
+        max-width: 94vw;
+      }
     }
-    
+
     @media (max-width: 700px) {
-      .header-fixed { 
-        border-radius: 0; 
-        padding: 12px 0 6px 0; 
+      .header-fixed {
+        border-radius: 0;
+        padding: 12px 0 6px 0;
       }
-      .header-fixed h1 { font-size: 1.45rem; }
-      .header-fixed p { font-size: 0.98rem; }
-      .container { 
-        max-width: 100vw; 
-        padding: 0 0vw; 
-        border-radius: 0; 
-        margin-top: 80px; 
+
+      .header-fixed h1 {
+        font-size: 1.45rem;
       }
-      #preview { max-width: 100vw; }
-      .timeline { max-width: 100vw; min-height: 220px; }
-      .photo-card, .mood-card { 
-        max-width: 99vw; 
-        padding: 0 0 10px 0; 
+
+      .header-fixed p {
+        font-size: 0.98rem;
       }
-      .photo-card img { 
-        max-width: 98vw; 
-        max-height: 60vw; 
+
+      .container {
+        max-width: 100vw;
+        padding: 0 0vw;
+        border-radius: 0;
+        margin-top: 80px;
       }
-      .photo-card .desc, .mood-card .desc { 
-        font-size: 1.05rem; 
+
+      #preview {
+        max-width: 100vw;
       }
+
+      .timeline {
+        max-width: 100vw;
+        min-height: 220px;
+      }
+
+      .photo-card,
+      .mood-card {
+        max-width: 99vw;
+        padding: 0 0 10px 0;
+      }
+
+      .photo-card img {
+        max-width: 98vw;
+        max-height: 60vw;
+      }
+
+      .photo-card .desc,
+      .mood-card .desc {
+        font-size: 1.05rem;
+      }
+
       .welcome-title h1 {
         font-size: 2rem;
       }
+
       .welcome-title p {
         font-size: 1rem;
       }
+
       .btn {
         padding: 12px 36px;
         font-size: 1.1rem;
       }
+
       #album-grid {
         grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
       }
     }
-    
+
     /* 音乐控制 */
     .music-controls {
       position: fixed;
@@ -654,9 +764,9 @@
       gap: 12px;
       align-items: center;
     }
-    
+
     .music-btn {
-      background: rgba(34,39,63,0.7);
+      background: rgba(34, 39, 63, 0.7);
       border: none;
       border-radius: 50%;
       width: 36px;
@@ -669,15 +779,15 @@
       box-shadow: 0 2px 8px var(--shadow);
       transition: all 0.2s;
     }
-    
+
     .music-btn:hover {
       transform: scale(1.1);
       background: var(--primary);
       color: var(--dark);
     }
-    
+
     #musicSelect {
-      background: rgba(34,39,63,0.92);
+      background: rgba(34, 39, 63, 0.92);
       color: var(--accent);
       border-radius: 8px;
       border: none;
@@ -689,51 +799,45 @@
     }
   </style>
 </head>
+
 <body class="bg1">
   <!-- 星空背景 -->
   <div class="stars" id="stars"></div>
-  
+
   <!-- 欢迎页 -->
   <div id="healing-home">
     <div id="healing-content">
       <!-- 波浪动画 -->
       <div class="wave-layer wave-1"></div>
       <div class="wave-layer wave-2"></div>
-      
+
       <!-- 气泡动画 -->
       <div id="bubbles"></div>
-      
+
       <!-- 帆船 -->
-      <div class="sail-boat">
+      <div class="sail-boat" id="sail-boat">
         <svg viewBox="0 0 80 80">
-          <rect x="38" y="40" width="4" height="28" fill="#795548"/>
-          <polygon points="40,42 60,68 40,68" fill="#fff"/>
-          <polygon points="40,42 20,68 40,68" fill="#bdb2ff"/>
+          <rect x="38" y="40" width="4" height="28" fill="#795548" />
+          <polygon points="40,42 60,68 40,68" fill="#fff" />
+          <polygon points="40,42 20,68 40,68" fill="#bdb2ff" />
         </svg>
       </div>
-      
+
       <!-- 海鸥 -->
       <div class="seagull seagull-1">
         <svg viewBox="0 0 60 40">
-          <path d="M5,30 Q20,10 30,20 Q40,30 55,10" stroke="#fff" stroke-width="3" fill="none"/>
+          <path d="M5,30 Q20,10 30,20 Q40,30 55,10" stroke="#fff" stroke-width="3" fill="none" />
         </svg>
       </div>
-      
+
       <div class="seagull seagull-2">
         <svg viewBox="0 0 60 40">
-          <path d="M5,30 Q20,10 30,20 Q40,30 55,10" stroke="#fff" stroke-width="2" fill="none"/>
+          <path d="M5,30 Q20,10 30,20 Q40,30 55,10" stroke="#fff" stroke-width="2" fill="none" />
         </svg>
-      </div>
-      
-      <!-- 欢迎标题 -->
-      <div class="welcome-title">
-        <h1>小王子的日常分享</h1>
-        <p>这里有帆船、海鸥和海浪，一起探索生活中的美好瞬间吧</p>
-        <button id="enter-btn" class="btn">进入主页</button>
       </div>
     </div>
   </div>
-  
+
   <!-- 主内容区 -->
   <div id="main-content" style="display:none;">
     <!-- 固定头部 -->
@@ -744,7 +848,7 @@
         <i class="fas fa-images"></i> 相册
       </button>
     </div>
-    
+
     <!-- 时间线内容 -->
     <div class="container">
       <div id="preview">
@@ -756,7 +860,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- 相册模态框 -->
     <div id="album-modal">
       <div class="album-container">
@@ -765,7 +869,7 @@
         <div id="album-grid"></div>
       </div>
     </div>
-    
+
     <!-- 音乐控制 -->
     <div class="music-controls">
       <select id="musicSelect" title="选择背景音乐">
@@ -776,32 +880,46 @@
       </select>
       <button id="musicToggle" class="music-btn" title="播放/暂停音乐">▶</button>
     </div>
-    
-    <audio id="bgm" src="https://lzhimagebed.xyz/%E6%96%BD%E5%8B%BF%E8%A8%80%20-%20%E8%BD%BB%E9%9F%B3%E4%B9%90%E8%88%92%E7%BC%93%E6%94%BE%E6%9D%BE%E7%BA%AF%E9%9F%B3%E4%B9%90%EF%BC%9A%E7%AD%89%E9%A3%8E%E7%9A%84%E6%97%A5%E5%AD%90_EG.flac" loop preload="auto" style="display:none"></audio>
+
+    <audio id="bgm" src="https://lzhimagebed.xyz/%E6%96%BD%E5%8B%BF%E8%A8%80%20-%20%E8%BD%BB%E9%9F%B3%E4%B9%90%E8%88%92%E7%BC%93%E6%94%BE%E6%9D%BE%E7%BA%AF%E9%9F%B3%E4%B9%90%EF%BC%9A%E7%AD%89%E9%A3%8E%E7%9A%84%E6%97%A5%E5%AD%90_EG.flac" loop preload="auto"
+      style="display:none"></audio>
   </div>
-  
+
   <script>
     // 页面加载完成后初始化
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       // 初始化星空
       initStars();
-      
+
       // 初始化气泡
       initBubbles();
-      
+
       // 设置事件监听
       setupEventListeners();
-      
+
       // 初始化背景切换
       initBackgroundSwitcher();
+
+      // 给帆船添加点击事件
+      const sailBoat = document.getElementById('sail-boat');
+      sailBoat.addEventListener('click', function () {
+        document.getElementById('healing-home').style.opacity = 0;
+        setTimeout(function () {
+          document.getElementById('healing-home').style.display = 'none';
+          document.getElementById('main-content').style.display = '';
+
+          // 加载照片
+          setTimeout(loadPhotos, 300);
+        }, 800);
+      });
     });
-    
+
     // 初始化星空
     function initStars() {
       const stars = document.getElementById('stars');
       const starCount = 80;
-      
-      for(let i = 0; i < starCount; i++) {
+
+      for (let i = 0; i < starCount; i++) {
         const star = document.createElement('div');
         star.className = 'star';
         star.style.left = Math.random() * 100 + 'vw';
@@ -810,13 +928,13 @@
         stars.appendChild(star);
       }
     }
-    
+
     // 初始化气泡
     function initBubbles() {
       const bubbles = document.getElementById('bubbles');
       const bubbleCount = 18;
-      
-      for(let i = 0; i < bubbleCount; i++) {
+
+      for (let i = 0; i < bubbleCount; i++) {
         const bubble = document.createElement('div');
         bubble.className = 'bubble';
         bubble.style.left = Math.random() * 100 + 'vw';
@@ -827,91 +945,79 @@
         bubbles.appendChild(bubble);
       }
     }
-    
+
     // 设置事件监听
     function setupEventListeners() {
-      // 进入主页按钮
-      document.getElementById('enter-btn').addEventListener('click', function() {
-        document.getElementById('healing-home').style.opacity = 0;
-        setTimeout(function() {
-          document.getElementById('healing-home').style.display = 'none';
-          document.getElementById('main-content').style.display = '';
-          
-          // 加载照片
-          setTimeout(loadPhotos, 300);
-        }, 800);
-      });
-      
       // 相册按钮
       document.getElementById('album-btn').addEventListener('click', openAlbum);
-      
+
       // 关闭相册按钮
       document.getElementById('album-close').addEventListener('click', closeAlbum);
-      
+
       // 音乐播放/暂停
       document.getElementById('musicToggle').addEventListener('click', toggleMusic);
-      
+
       // 切换音乐
       document.getElementById('musicSelect').addEventListener('change', changeMusic);
     }
-    
+
     // 初始化背景切换
     function initBackgroundSwitcher() {
-      const bgList = ['bg1','bg2','bg3','bg4','bg5'];
+      const bgList = ['bg1', 'bg2', 'bg3', 'bg4', 'bg5'];
       let bgIdx = 0;
-      
+
       function switchBg() {
         document.body.classList.remove(...bgList);
         document.body.classList.add(bgList[bgIdx]);
         bgIdx = (bgIdx + 1) % bgList.length;
       }
-      
+
       switchBg();
       setInterval(switchBg, 12000);
     }
-    
+
     // 加载照片
     async function loadPhotos() {
       const timeline = document.getElementById('timeline');
-      
+
       try {
         // 显示加载状态
         timeline.innerHTML = '<div class="loading-state"><div class="loader"></div><p>加载中，请稍候...</p></div>';
-        
+
         // 获取JSON数据
         const response = await fetch('desc.json?t=' + new Date().getTime());
         if (!response.ok) {
           throw new Error('数据加载失败: ' + response.status);
         }
         const data = await response.json();
-        
+
         // 验证数据格式
         if (!data.days || !Array.isArray(data.days)) {
           throw new Error('数据格式错误');
         }
-        
+
         // 按日期排序（最新的在前）
         const days = data.days.slice().sort((a, b) => {
           return new Date(b.date) - new Date(a.date);
         });
-        
+
         // 渲染时间线
         renderTimeline(days);
-        
+
       } catch (error) {
         timeline.innerHTML = `<div class="error" style="color: #ff5252; text-align: center; padding: 20px;">加载失败: ${error.message}</div>`;
       }
     }
-    
+
     // 渲染时间线
     function renderTimeline(days) {
       const timeline = document.getElementById('timeline');
       timeline.innerHTML = '';
-      
+
       days.forEach((day, idx) => {
         const dayBlock = document.createElement('div');
         dayBlock.className = 'day-block' + (idx === 0 ? ' highlight-day' : '');
-        
+
         // 日期标题
         const dayHeader = document.createElement('div');
         dayHeader.className = 'day-header';
@@ -921,44 +1027,44 @@
           <div class='day-desc'>${day.desc}</div>
         `;
         dayBlock.appendChild(dayHeader);
-        
+
         // 内容轮播
         const carousel = document.createElement('div');
         carousel.className = 'day-carousel';
-        
+
         // 渲染内容项
         renderCarouselItems(carousel, day.items);
-        
+
         dayBlock.appendChild(carousel);
         timeline.appendChild(dayBlock);
       });
     }
-    
+
     // 渲染内容项
     function renderCarouselItems(carousel, items) {
       if (!items || items.length === 0) return;
-      
+
       items.forEach(item => {
         const content = document.createElement('div');
         content.className = 'timeline-content';
-        
+
         let card;
         if (item.type === 'video' || (item.src && /\.(mp4|webm|ogg)$/i.test(item.src))) {
           card = createVideoCard(item);
         } else {
           card = createImageCard(item);
         }
-        
+
         content.appendChild(card);
         carousel.appendChild(content);
       });
     }
-    
+
     // 创建视频卡片
     function createVideoCard(item) {
       const card = document.createElement('div');
       card.className = 'photo-card';
-      
+
       const video = document.createElement('video');
       video.src = item.src;
       video.controls = true;
@@ -967,58 +1073,58 @@
       video.style.borderRadius = '18px';
       video.style.background = '#f1f8e9';
       video.style.marginBottom = '12px';
-      
+
       card.appendChild(video);
-      
+
       if (item.desc) {
         const desc = document.createElement('div');
         desc.className = 'desc';
         desc.textContent = item.desc;
         card.appendChild(desc);
       }
-      
+
       return card;
     }
-    
+
     // 创建图片卡片
     function createImageCard(item) {
       const card = document.createElement('div');
       card.className = 'photo-card';
-      
+
       const img = document.createElement('img');
       img.src = item.src;
       img.alt = item.desc || '';
       img.loading = 'lazy';
       img.onclick = () => showBigImage(item.src); // 点击放大图片
-      
+
       card.appendChild(img);
-      
+
       if (item.desc) {
         const desc = document.createElement('div');
         desc.className = 'desc';
         desc.textContent = item.desc;
         card.appendChild(desc);
       }
-      
+
       if (item.tags && item.tags.length) {
         const tags = document.createElement('div');
         tags.style.cssText = 'margin-top:4px;color:#ffe082;font-size:0.98rem;';
         tags.textContent = '#' + item.tags.join(' #');
         card.appendChild(tags);
       }
-      
+
       return card;
     }
-    
+
     // 打开相册
     async function openAlbum() {
       const albumModal = document.getElementById('album-modal');
       const albumGrid = document.getElementById('album-grid');
-      
+
       // 显示加载状态
       albumGrid.innerHTML = '<div class="loading-state"><div class="loader"></div><p>加载相册中...</p></div>';
       albumModal.style.display = 'flex';
-      
+
       try {
         // 获取图片数据
         const response = await fetch('desc.json?t=' + new Date().getTime());
@@ -1026,13 +1132,13 @@
           throw new Error('数据加载失败: ' + response.status);
         }
         const data = await response.json();
-        
+
         // 提取所有图片URL
         const images = [];
         data.days.forEach(day => {
           day.items.forEach(item => {
-            if (item.type === 'image' || item.type === 'picture' || item.type === '照片' || 
-                (!item.type && item.src && /\.(jpg|jpeg|png|gif|webp)$/i.test(item.src))) {
+            if (item.type === 'image' || item.type === 'picture' || item.type === '照片' ||
+              (!item.type && item.src && /\.(jpg|jpeg|png|gif|webp)$/i.test(item.src))) {
               if (Array.isArray(item.src)) {
                 item.src.forEach(src => images.push(src.trim()));
               } else {
@@ -1041,7 +1147,7 @@
             }
           });
         });
-        
+
         // 渲染相册
         albumGrid.innerHTML = '';
         images.forEach(url => {
@@ -1051,38 +1157,38 @@
           img.onclick = () => showBigImage(url);
           albumGrid.appendChild(img);
         });
-        
+
       } catch (error) {
         albumGrid.innerHTML = `<div class="error" style="color: #ff5252; text-align: center; padding: 20px;">相册加载失败: ${error.message}</div>`;
       }
     }
-    
+
     // 关闭相册
     function closeAlbum() {
       document.getElementById('album-modal').style.display = 'none';
     }
-    
+
     // 显示大图
     function showBigImage(url) {
       const viewer = document.createElement('div');
       viewer.className = 'image-viewer';
-      
+
       const img = document.createElement('img');
       img.src = url;
       img.alt = '大图预览';
-      
+
       const closeBtn = document.createElement('button');
       closeBtn.className = 'close-btn';
       closeBtn.textContent = '×';
       closeBtn.addEventListener('click', () => document.body.removeChild(viewer));
-      
+
       // 点击空白处关闭
-      viewer.addEventListener('click', function(e) {
+      viewer.addEventListener('click', function (e) {
         if (e.target === this) {
           document.body.removeChild(viewer);
         }
       });
-      
+
       // ESC键关闭
       const handleEsc = (e) => {
         if (e.key === 'Escape') {
@@ -1091,17 +1197,17 @@
         }
       };
       document.addEventListener('keydown', handleEsc);
-      
+
       viewer.appendChild(img);
       viewer.appendChild(closeBtn);
       document.body.appendChild(viewer);
     }
-    
+
     // 切换音乐播放/暂停
     function toggleMusic() {
       const audio = document.getElementById('bgm');
       const btn = document.getElementById('musicToggle');
-      
+
       if (audio.paused) {
         audio.play().catch(err => {
           console.log('播放失败:', err);
@@ -1113,12 +1219,12 @@
         btn.textContent = '▶';
       }
     }
-    
+
     // 切换音乐
     function changeMusic() {
       const audio = document.getElementById('bgm');
       const select = document.getElementById('musicSelect');
-      
+
       audio.pause();
       audio.src = select.value;
       audio.play().catch(err => {
@@ -1128,4 +1234,5 @@
     }
   </script>
 </body>
+
 </html>
