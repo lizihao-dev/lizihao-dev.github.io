@@ -1,32 +1,21 @@
 {
   "version": 2,
   "days": [
-  
-    
     {
-       "date": "2025-07-01",
+      "date": "2025-07-01",
       "title": "陈欣朋友圈",
       "desc": "逛荡",
       "items": [
         {
           "type": "picture",
           "src": [
-            "https://lzhimagebed.xyz/mmexport1751350494391.jpg"
+            "/images/mmexport1751350494391.jpg",
+            "/images/mmexport1751350483429.jpg"
           ],
           "desc": "陈欣",
           "tags": ["朋友"]
-        },
-         {
-          "type": "闲聊",
-          "desc": "欸额欸欸欸我靠！",
-          "tags": ["朋友"]
         }
-
-
       ]
-
     }
-
-
   ]
 }
