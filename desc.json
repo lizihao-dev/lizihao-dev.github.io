@@ -3,67 +3,53 @@
   "days": [
     {
       "date": "2025-06-30",
-      "title": "期末前的心情，aaa",
+      "title": "期末前的心情",
       "desc": "今天有点紧张，但也有很多美好瞬间",
       "items": [
         {
           "type": "video",
           "src": "https://lzhimagebed.xyz/Video_1718116174049.mp4",
           "desc": "肖云杉",
-          "tags": ["朋友"],
-          "cover": "",
-          "extra": {}
+          "tags": ["朋友"]
         },
         {
           "type": "image",
           "src": "https://lzhimagebed.xyz/mmexport1743862493184.webp",
           "desc": "好慌呀！明天要靠数学了，还有好多没学会😭",
-          "tags": ["心情"],
-          "cover": "",
-          "extra": {}
+          "tags": ["心情"]
         },
         {
           "type": "image",
           "src": "https://lzhimagebed.xyz/Screenshot_20250530_001804_com.ss.android.yumme.v.jpg",
           "desc": "三🦌肉",
-          "tags": [],
-          "cover": "",
-          "extra": {}
+          "tags": []
         },
         {
           "type": "video",
           "src": "https://lzhimagebed.xyz/QQ视频_b7201269b246c294d98baf97ac2bdc2e1675430590.mp4",
           "desc": "海鸥",
-          "tags": [],
-          "cover": "",
-          "extra": {}
+          "tags": []
         },
         {
           "type": "video",
           "src": [
             "https://lzhimagebed.xyz/QQ视频_b7201269b246c294d98baf97ac2bdc2e1675430590.mp4",
-            "https://lzhimagebed.xyz/mmexport1743862481935.webp "
+            "https://lzhimagebed.xyz/mmexport1743862481935.webp"
           ],
           "desc": "jijijijijij",
-          "tags": [],
-          "cover": "",
-          "extra": {}
+          "tags": []
         },
         {
           "type": "image",
-          "src": "images/Screenshot_20250530_001819_com.ss.android.yumme.v.jpg",
+          "src": "https://lzhimagebed.xyz/Screenshot_20250530_001819_com.ss.android.yumme.v.jpg",
           "desc": "和朋友们的欢笑定格在这一刻。",
-          "tags": ["朋友"],
-          "cover": "",
-          "extra": {}
+          "tags": ["朋友"]
         },
         {
           "type": "image",
           "src": "https://lzhimagebed.xyz/mmexport1743862481935.webp",
           "desc": "野花",
-          "tags": ["自然"],
-          "cover": "",
-          "extra": {}
+          "tags": ["自然"]
         }
       ]
     }

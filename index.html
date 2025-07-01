@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Cache-Control" content="public, max-age=3600">
   <title>小王子的治愈世界</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
       --primary: #bdb2ff;
@@ -15,6 +14,8 @@
       --light: #fffbe7;
       --text: #2a2a2a;
       --shadow: rgba(35, 41, 70, 0.2);
+      --success: #a5d6a7;
+      --error: #ff5252;
     }
     
     * {
@@ -293,16 +294,77 @@
       overflow: hidden;
     }
     
-    /* 首页动画元素 */
-    .ocean-waves {
+    /* 波浪动画使用CSS实现 */
+    .wave-layer {
       position: absolute;
       bottom: 0;
       left: 0;
-      width: 100vw;
-      height: 45vh;
+      width: 200%;
+      height: 40vh;
       z-index: 1;
     }
     
+    .wave-1 {
+      background: linear-gradient(to bottom, #64b5f6, #1976d2);
+      opacity: 0.7;
+      animation: wave-move 8s linear infinite;
+      clip-path: path('M0,320 Q300,370 600,320 T1200,320 V400 H0Z');
+    }
+    
+    .wave-2 {
+      background: linear-gradient(to bottom, #b3e5fc, #90caf9);
+      animation: wave-move 10s linear infinite reverse;
+      clip-path: path('M0,300 Q300,350 600,300 T1200,300 V400 H0Z');
+    }
+    
+    @keyframes wave-move {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    
+    /* 漂浮泡泡 */
+    .bubble {
+      position: absolute;
+      background: rgba(255,255,255,0.18);
+      border-radius: 50%;
+      filter: blur(1.5px);
+    }
+    
+    /* 海鸥动画使用CSS关键帧 */
+    .seagull {
+      position: absolute;
+      z-index: 3;
+      will-change: transform;
+    }
+    
+    .seagull-1 {
+      left: 20vw;
+      top: 18vh;
+      width: 60px;
+      height: 40px;
+      animation: seagull-fly 6s linear infinite alternate;
+    }
+    
+    .seagull-2 {
+      left: 60vw;
+      top: 12vh;
+      width: 40px;
+      height: 28px;
+      opacity: 0.7;
+      animation: seagull-fly2 7s linear infinite alternate;
+    }
+    
+    @keyframes seagull-fly {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(10vw, -6vh); }
+    }
+    
+    @keyframes seagull-fly2 {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(10vw, 8vh); }
+    }
+    
+    /* 帆船动画使用CSS */
     .sail-boat {
       position: absolute;
       left: 55vw;
@@ -315,25 +377,9 @@
       will-change: transform;
     }
     
-    .seagull {
-      position: absolute;
-      z-index: 3;
-      will-change: transform;
-    }
-    
     @keyframes sail-move {
       0% { transform: translateX(0); }
       100% { transform: translateX(10vw); }
-    }
-    
-    @keyframes seagull-fly {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(10vw, -6vh); }
-    }
-    
-    @keyframes seagull-fly2 {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(10vw, 8vh); }
     }
     
     @keyframes bubble-up {
@@ -650,43 +696,34 @@
   <!-- 首页动画容器 -->
   <div id="healing-home">
     <div id="healing-content">
-      <!-- 多层大海 -->
-      <svg class="ocean-waves" viewBox="0 0 1200 400">
-        <defs>
-          <linearGradient id="sea1" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#b3e5fc"/>
-            <stop offset="100%" stop-color="#90caf9"/>
-          </linearGradient>
-          <linearGradient id="sea2" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#64b5f6"/>
-            <stop offset="100%" stop-color="#1976d2"/>
-          </linearGradient>
-        </defs>
-        <path d="M0,320 Q300,370 600,320 T1200,320 V400 H0Z" fill="url(#sea2)" opacity="0.7">
-          <animate attributeName="d" dur="8s" repeatCount="indefinite" values="M0,320 Q300,370 600,320 T1200,320 V400 H0Z;M0,320 Q300,340 600,340 T1200,320 V400 H0Z;M0,320 Q300,370 600,320 T1200,320 V400 H0Z"/>
-        </path>
-        <path d="M0,300 Q300,350 600,300 T1200,300 V400 H0Z" fill="url(#sea1)">
-          <animate attributeName="d" dur="10s" repeatCount="indefinite" values="M0,300 Q300,350 600,300 T1200,300 V400 H0Z;M0,300 Q300,320 600,340 T1200,300 V400 H0Z;M0,300 Q300,350 600,300 T1200,300 V400 H0Z"/>
-        </path>
-      </svg>
+      <!-- 波浪效果使用CSS实现 -->
+      <div class="wave-layer wave-1"></div>
+      <div class="wave-layer wave-2"></div>
       
       <!-- 漂浮泡泡 -->
       <div id="bubbles"></div>
       
       <!-- 孤帆 -->
-      <svg class="sail-boat" viewBox="0 0 80 80">
-        <rect x="38" y="40" width="4" height="28" fill="#795548"/>
-        <polygon points="40,42 60,68 40,68" fill="#fff"/>
-        <polygon points="40,42 20,68 40,68" fill="#bdb2ff"/>
-      </svg>
+      <div class="sail-boat">
+        <svg viewBox="0 0 80 80">
+          <rect x="38" y="40" width="4" height="28" fill="#795548"/>
+          <polygon points="40,42 60,68 40,68" fill="#fff"/>
+          <polygon points="40,42 20,68 40,68" fill="#bdb2ff"/>
+        </svg>
+      </div>
       
       <!-- 多只海鸥 -->
-      <svg class="seagull" style="left:20vw;top:18vh;width:60px;height:40px;animation:seagull-fly 6s linear infinite alternate;" viewBox="0 0 60 40">
-        <path d="M5,30 Q20,10 30,20 Q40,30 55,10" stroke="#fff" stroke-width="3" fill="none"/>
-      </svg>
-      <svg class="seagull" style="left:60vw;top:12vh;width:40px;height:28px;animation:seagull-fly2 7s linear infinite alternate;opacity:0.7;" viewBox="0 0 60 40">
-        <path d="M5,30 Q20,10 30,20 Q40,30 55,10" stroke="#fff" stroke-width="2" fill="none"/>
-      </svg>
+      <div class="seagull seagull-1">
+        <svg viewBox="0 0 60 40">
+          <path d="M5,30 Q20,10 30,20 Q40,30 55,10" stroke="#fff" stroke-width="3" fill="none"/>
+        </svg>
+      </div>
+      
+      <div class="seagull seagull-2">
+        <svg viewBox="0 0 60 40">
+          <path d="M5,30 Q20,10 30,20 Q40,30 55,10" stroke="#fff" stroke-width="2" fill="none"/>
+        </svg>
+      </div>
       
       <!-- 欢迎标题 -->
       <div class="welcome-title">
@@ -703,7 +740,9 @@
     <div class="header-fixed">
       <h1>小王子的世界</h1>
       <p>欢迎来到我的个人博客！这里你可以浏览我分享的照片和心情。<br>“所有的大人都曾经是小孩，虽然，只有少数的人记得。”</p>
-      <button id="album-btn" class="btn" style="margin-top:8px;padding:6px 22px;font-size:1.08rem;">相册</button>
+      <button id="album-btn" class="btn" style="margin-top:8px;padding:6px 22px;font-size:1.08rem;">
+        <i class="fas fa-images"></i> 相册
+      </button>
     </div>
     
     <!-- 时间轴容器 -->
@@ -753,9 +792,6 @@
       // 设置事件监听器
       setupEventListeners();
       
-      // 预加载资源
-      preloadResources();
-      
       // 自动切换背景
       initBackgroundSwitcher();
     });
@@ -782,14 +818,11 @@
       
       for(let i = 0; i < bubbleCount; i++) {
         const bubble = document.createElement('div');
-        bubble.style.position = 'absolute';
+        bubble.className = 'bubble';
         bubble.style.left = Math.random() * 100 + 'vw';
         bubble.style.bottom = Math.random() * 30 + 10 + 'vh';
         const size = Math.random() * 18 + 12;
         bubble.style.width = bubble.style.height = size + 'px';
-        bubble.style.background = 'rgba(255,255,255,0.18)';
-        bubble.style.borderRadius = '50%';
-        bubble.style.filter = 'blur(1.5px)';
         bubble.style.animation = `bubble-up ${4 + Math.random() * 6}s linear infinite`;
         bubbles.appendChild(bubble);
       }
@@ -822,11 +855,6 @@
       document.getElementById('musicSelect').addEventListener('change', changeMusic);
     }
     
-    // 预加载资源
-    function preloadResources() {
-      // 这里可以添加预加载逻辑
-    }
-    
     // 初始化背景切换
     function initBackgroundSwitcher() {
       const bgList = ['bg1','bg2','bg3','bg4','bg5'];
@@ -847,60 +875,28 @@
       const timeline = document.getElementById('timeline');
       
       try {
-        // 模拟加载延迟
-        await new Promise(resolve => setTimeout(resolve, 800));
+        // 显示加载状态
+        timeline.innerHTML = '<div class="loading-state"><div class="loader"></div><p>正在加载美好回忆...</p></div>';
+        
+        // 从 desc.json 加载数据
+        const response = await fetch('desc.json?t=' + new Date().getTime());
+        if (!response.ok) {
+          throw new Error('数据加载失败: ' + response.status);
+        }
+        const data = await response.json();
+        
+        // 确保数据格式正确
+        if (!data.days || !Array.isArray(data.days)) {
+          throw new Error('数据格式错误');
+        }
+        
+        // 按日期倒序排列（最新的在前）
+        const days = data.days.slice().sort((a, b) => {
+          return new Date(b.date) - new Date(a.date);
+        });
         
         // 清除加载状态
         timeline.innerHTML = '';
-        
-        // 这里应该是从 desc.json 加载数据
-        // 为演示目的，我们使用硬编码数据
-        const days = [
-          {
-            date: "2025-06-30",
-            title: "期末前的心情",
-            desc: "今天有点紧张，但也有很多美好瞬间",
-            items: [
-              {
-                type: "video",
-                src: "https://lzhimagebed.xyz/Video_1718116174049.mp4",
-                desc: "肖云杉",
-                tags: ["朋友"]
-              },
-              {
-                type: "image",
-                src: "https://lzhimagebed.xyz/mmexport1743862493184.webp",
-                desc: "好慌呀！明天要靠数学了，还有好多没学会😭",
-                tags: ["心情"]
-              },
-              {
-                type: "image",
-                src: "https://lzhimagebed.xyz/Screenshot_20250530_001804_com.ss.android.yumme.v.jpg",
-                desc: "三🦌肉",
-                tags: []
-              }
-            ]
-          },
-          {
-            date: "2025-06-28",
-            title: "周末的闲暇时光",
-            desc: "和朋友们一起度过的美好周末",
-            items: [
-              {
-                type: "image",
-                src: "https://lzhimagebed.xyz/mmexport1743862481935.webp",
-                desc: "公园里的野花",
-                tags: ["自然", "朋友"]
-              },
-              {
-                type: "image",
-                src: "https://lzhimagebed.xyz/Screenshot_20250530_001819_com.ss.android.yumme.v.jpg",
-                desc: "和朋友们的欢笑定格在这一刻",
-                tags: ["朋友"]
-              }
-            ]
-          }
-        ];
         
         // 渲染时间轴
         renderTimeline(days);
@@ -1017,29 +1013,54 @@
     }
     
     // 打开相册
-    function openAlbum() {
+    async function openAlbum() {
       const albumModal = document.getElementById('album-modal');
       const albumGrid = document.getElementById('album-grid');
       
-      // 清空相册
-      albumGrid.innerHTML = '';
-      
-      // 添加图片（这里应该是从数据加载）
-      const images = [
-        'https://lzhimagebed.xyz/mmexport1743862493184.webp',
-        'https://lzhimagebed.xyz/Screenshot_20250530_001804_com.ss.android.yumme.v.jpg',
-        'https://lzhimagebed.xyz/mmexport1743862481935.webp',
-        'https://lzhimagebed.xyz/Screenshot_20250530_001819_com.ss.android.yumme.v.jpg'
-      ];
-      
-      images.forEach(url => {
-        const img = document.createElement('img');
-        img.src = url;
-        img.onclick = () => showBigImage(url);
-        albumGrid.appendChild(img);
-      });
-      
+      // 显示加载状态
+      albumGrid.innerHTML = '<div class="loading-state"><div class="loader"></div><p>正在加载相册...</p></div>';
       albumModal.style.display = 'flex';
+      
+      try {
+        // 从 desc.json 加载数据
+        const response = await fetch('desc.json?t=' + new Date().getTime());
+        if (!response.ok) {
+          throw new Error('数据加载失败: ' + response.status);
+        }
+        const data = await response.json();
+        
+        // 确保数据格式正确
+        if (!data.days || !Array.isArray(data.days)) {
+          throw new Error('数据格式错误');
+        }
+        
+        // 收集所有图片URL
+        const images = [];
+        data.days.forEach(day => {
+          day.items.forEach(item => {
+            // 处理单个或多个图片/视频
+            if (item.type === 'image' || (!item.type && item.src && /\.(jpg|jpeg|png|gif|webp)$/i.test(item.src))) {
+              if (Array.isArray(item.src)) {
+                item.src.forEach(src => images.push(src.trim()));
+              } else {
+                images.push(item.src.trim());
+              }
+            }
+          });
+        });
+        
+        // 清空并填充相册
+        albumGrid.innerHTML = '';
+        images.forEach(url => {
+          const img = document.createElement('img');
+          img.src = url;
+          img.onclick = () => showBigImage(url);
+          albumGrid.appendChild(img);
+        });
+        
+      } catch (error) {
+        albumGrid.innerHTML = '<div class="error">加载相册出错: ' + error.message + '</div>';
+      }
     }
     
     // 关闭相册
@@ -1096,34 +1117,6 @@
       audio.pause();
       audio.src = select.value;
       audio.play();
-    }
-    
-    // 触摸事件支持
-    document.addEventListener('touchstart', handleTouchStart, false);
-    document.addEventListener('touchmove', handleTouchMove, false);
-    
-    let touchStartX = 0;
-    
-    function handleTouchStart(event) {
-      touchStartX = event.touches[0].clientX;
-    }
-    
-    function handleTouchMove(event) {
-      if (!touchStartX) return;
-      
-      const touchEndX = event.touches[0].clientX;
-      const diffX = touchStartX - touchEndX;
-      
-      // 水平滑动超过50px触发操作
-      if (Math.abs(diffX) > 50) {
-        if (diffX > 0) {
-          // 向右滑动
-        } else {
-          // 向左滑动
-        }
-        
-        touchStartX = 0;
-      }
     }
   </script>
 </body>
