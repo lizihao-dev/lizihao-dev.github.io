@@ -66,21 +66,6 @@
           "extra": {}
         }
       ]
-    },
-    {
-      "date": "2025-07-01",
-      "title": "新的开始",
-      "desc": "今天是7月的第一天，记录一下新的心情！",
-      "items": [
-        {
-          "type": "image",
-          "src": "images/yangyuhan.jpg",
-          "desc": "阳光明媚，充满希望的一天 ☀️",
-          "tags": ["心情", "生活"],
-          "cover": "",
-          "extra": {}
-        }
-      ]
     }
   ]
 }
